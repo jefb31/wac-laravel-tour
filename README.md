@@ -12,7 +12,7 @@ L'utilisateur souhaitant visiter notre application devra s'inscrire et se connec
 
 Il sera possible de voir la liste de tout les films, de les trier par catégories, d'afficher le détail d'un film.
 
-Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket chez un de nos cinma partenaires.
+Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket chez un de nos cinéma partenaires.
 
 L'administrateur quand a lui, aura plus de droit : il pourra éditer et supprimer un film, un membre, une catégorie, un cinéma partenaire, et pourra visualiser les commandes effectuées par les utilisateurs.
 
