@@ -27,7 +27,6 @@ Assurez-vous maintenant de donner les droits nécessaires au dossier "api/storag
 
 Editer le fichier "api/.env", coeur de configuration de Laravel, pour y insérer vos informations de connexion MySQL.
 
-
 ### Etape 1 : Migration
 
 La première étapes va être de modéliser notre base de donnée.
