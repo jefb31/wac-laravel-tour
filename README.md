@@ -12,16 +12,16 @@ Il sera possible de voir la liste de tout les films, de les trier par catégorie
 
 Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket chez un de nos cinéma partenaires.
 
-L'administrateur quand a lui, aura plus de droit : il pourra éditer et supprimer un film, un membre, une catégorie, un cinéma partenaire, et pourra visualiser les commandes effectuées par les utilisateurs.
+L'administrateur aura plus de droit : il pourra ajouter, éditer, supprimer un film, un membre, une catégorie, un cinéma partenaire, et pourra visualiser les commandes effectuées par les utilisateurs.
 
-Le site sera constitué en 2 parties : un service (API) sous Laravel, et la partie front avec Angular pour utiliser cette API.
+Le site sera constitué en 2 parties : un service (API) sous Laravel, et un site utilisant notre service avec Angular.
 
 - 2 jours sont consacré à la mise en place de l'API avec Laravel.
-- 2 jours sont consacré à mettre en place la partie front avec Angular.
-- 1 journée suffit à mettre en place l'administration et à terminer les autres parties du site pour les retardataires.
+- 2 jours sont consacré à la mise en place de la partie front avec Angular.
+- 1 journée est consacré à la mise place de l'administration.
 
 # But
 
-- Comprendre comment mettre en place une API avec un framework fiable et demandé sur le marché
-- Comment faire intéragir une API avec un site web
-- Comment s'organiser et garder une logique tout au long du projet
+- Comprendre comment mettre en place une API avec un framework demandé sur le marché.
+- Comment faire intéragir une API avec un site web.
+- Comment s'organiser et garder une bonne logique tout au long du projet
