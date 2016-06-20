@@ -29,7 +29,7 @@ $table->foreign('category_id')->references('id')->on('categories');
 | category_id   | integer       | UNSIGNED car ne peut pas être négatif, FOREIGN KEY de categories.id |
 | name          | varchar       | 100 caractères max |
 | description   | text          | 2000 caractères max |
-| picture_url   | text          | 2000 caractères max |
+| picture_url   | text          | 2000 caractères max, NULL par défaut |
 
 
 # Categories
