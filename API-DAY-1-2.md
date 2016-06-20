@@ -82,15 +82,15 @@ Pour créer une migration, utiliser la commande suivante :
 php artisan make:migration create_<name>_table
 ```
 
-Votre migration vient d'être créer dans le dossier "database/migrations".
+Votre migration vient d'être créé dans le dossier "database/migrations".
 
-Vous n'avez plus qu'à remplir les méthodes up() et down(), correspondant respectivement à la migration et au rollback.
+Vous n'avez qu'à remplir les méthodes up() et down(), correspondant respectivement à la migration et au rollback.
 
 Pour partir sur une base commune, je vous propose de reproduire les tables suivantes : https://github.com/kMeillet/wac-laravel-tour/blob/master/DATABASE.md
 
 Penser à utiliser les options "softDelete" pour ne pas réellement supprimer un résultat et "timestamp" qui créera automatiquement les champs "created_at" et "updated_at" dans votre table.
 
-**Vous ne devez pas changer les noms des champs et respecter à la lettre les contraintes, respecter bien cette étape.**
+**Vous ne devez pas changer les noms des champs et respecter à la lettre les contraintes, respecter bien cette étapé.**
 
 Une fois les 4 migrations créé et complété, executer la commande çi-dessous, et passer à l'étape suivante.
 
@@ -127,19 +127,21 @@ Vous allez devoir créer 4 ressources :
 - Categories
 - Tickets
 
-Chaque ressource devra être lié à propre controlleur : UsersController, FilmsController, CategoriesController, TicketsController. Ces controllers devront être créer via la ligne de commande ; vous le savez, c'est toujours plus rapide.
+Chaque ressource devra être lié à son propre controlleur : UsersController, FilmsController, CategoriesController, TicketsController. Ces controllers devront être créer via la ligne de commande ; vous le savez, c'est toujours plus rapide.
 
 ```php
 php artisan make:controller Users --resource
 ```
 
-Parlons maintenant des middlewares. Vous ne connaissez peut-être pas le principe ? Ce sont des portions de code qui sont executé avant que le framework ne vous envoie une réponse.
+Parlons maintenant des middlewares.
+
+Vous ne connaissez peut-être pas le principe ? Ce sont des portions de code qui sont executé avant que le framework ne vous envoie une réponse.
 
 Cela permet, par exemple, de créer un système de tracage des actions des utilisateurs (logger), de démarrer les sessions, ... Les utilisations sont nombreuses.
 
 Par défaut, Laravel intègre plusieurs middlewares, et même des "groupes" de middleware (le groupe "web" contient 5 middlewares : EncryptCookies, AddQueudCookiesToResponse, StartSession, ShareErrorsFromSession, VerifyCSRFToken).
 
-Rappellez-vous, nous allons utiliser Angular avec notre API, et nous avons séparer notre site en 2 couches : le back sous Laravel, le front sous Angular. Les deux fonctionnent séparément, dans leur propre serveur, en total indépendance.
+Rappellez-vous, nous allons utiliser Angular avec notre API, et nous avons séparer notre site en 2 couches : le back sous Laravel, le front sous Angular. Les deux fonctionnent séparément en total indépendance.
 
 Le problème, c'est qu'une ressource ne peut pas être partagé entre 2 domaines.
 
@@ -149,7 +151,7 @@ Pour activer le CORS sur Laravel, il faut installer ce paquet : https://github.c
 
 Une fois installé, il va falloir appliquer 2 middlewares (API et CORS) à nos routes.
 
-Pour cela, crééons un groupe qui contiendra toutes nos ressources :
+Pour cela, créons un groupe qui contiendra toutes nos ressources :
 
 ```php
 Route::group(['middleware' => ['api', 'cors']], function() {
@@ -161,7 +163,7 @@ Le groupe de middleware "web" est destiné au site qui tourne sous Laravel de ma
 
 Tester quelques routes, une page blanche doit s'afficher car nos controlleurs sont vides.
 
-### Etape 3 : Models
+### Etape 3 : Modèles
 
 Attaquons maintenant le vif du sujet, la partie modèle.
 
@@ -172,7 +174,7 @@ Pour commencer, il va falloir créer 4 modèles, chacun correspondant à une tab
 - Category
 - Ticket
 
-Encore une fois, la ligne de commande vous permettra de créer vos modèles :
+Encore une fois, la ligne de commande vous permettra de créer vos modèles très rapidement :
 
 ```php
 php artisan make:model User
@@ -200,26 +202,32 @@ public function film()
 }
 ```
 
-Créer les 4 modèles avec les relations correspondantes.
+Créer les 4 modèles avec les relations correspondantes avant de passer à l'étape suivante.
+
+Pour tester votre modèle, vous pouvez utiliser la REPL de Laravel :
+
+```php
+php artisan tinker
+```
 
 ### Etape 5 : Gestion d'erreur
 
-Nos modèles sont désormais créer, mais nous n'avons aucune gestion d'erreur.
+Un problème particulier se pose : nous n'avons aucune gestion d'erreur.
 
-Imaginons qu'un controlleur ai besoin du modèle User pour rechercher l'utilisateur avec l'ID 15, et que cette utilisateur n'existe pas. Notre API devra renvoyer un message d'erreur.
+Imaginons qu'un controlleur ai besoin du modèle User pour rechercher l'utilisateur avec l'ID 15 et que cette utilisateur n'existe pas. Notre API devra renvoyer un message d'erreur.
 
-Laravel intègre une gestion d'erreurs avec les "Exceptions". Voci une liste des exceptions présente de base :
+Laravel intègre une gestion d'erreurs avec les exceptions. Voci une liste des exceptions présente de base :
 
 - AuthorizationException : problème d'authentification.
 - HttpException : problème de routing (404, ...).
 - ModelNotFoundException : notre modèle n'existe pas.
 - ValidationException : la validation de formulaire n'a pas réussis.
 
-Lorsque nous utilisons une API, nous souhaitons prendre le contrôle sur les erreurs. Et plus particulièrement sur MoedlNotFoundException qui lève une exception lorsque notre modèle n'existe pas. Cela nous évitera de coder une vérification dans tout les modèles.
+Lorsque nous utilisons une API, nous souhaitons prendre le contrôle sur les erreurs. Et plus particulièrement sur MoedlNotFoundException qui lève une exception lorsque notre modèle n'existe pas. Cela nous évitera de coder des vérification dans tout les modèles.
 
-Plutôt que d'afficher les erreurs en brut, ce qui n'aurait peut d'intérêt pour une API, nous allons capturer les erreurs et les renvoyer au format JSON.
+Plutôt que d'afficher les erreurs en brut, ce qui n'aurait pas d'intérêt pour une API, nous allons capturer les erreurs et les renvoyer au format JSON.
 
-Ouvrer le fichier "app/Exceptions/Handler.php" et remplacer la méthode render() :
+Ouvrer le fichier "app/Exceptions/Handler.php" et remplacer la méthode render() par celle-ci :
 
 ```php
 /**
@@ -274,7 +282,7 @@ public function index()
 
 Dans cette exemple, je charge tout les Users, et je renvoi une réponse au format JSON avec un code 200. Le dernier paramètre indique que nous ne souhaitons pas transformer les valeurs numériques en chaîne de caractères, c'est un paramètre que vous devez utiliser à chaque fois que vous envoyer une réponse pour éviter les problèmes de typage.
 
-Le code 200 indique que tout c'est bien passé. En cas d'erreur de validation d'un formulaire, nous aurions pu renvoyer un code 422 stipulant que le formulaire n'a pas été correctement remplit.
+Le code 200 indique que tout c'est bien passé ; en cas d'erreur de validation d'un formulaire, nous aurions pu renvoyer un code 422 stipulant que le formulaire n'a pas été correctement remplit.
 
 Voici une liste des codes HTTP que vous retrouverez très souvent :
 
@@ -285,31 +293,35 @@ Voici une liste des codes HTTP que vous retrouverez très souvent :
 - 422 : formulaire invalide.
 - 500 et 503 : erreur serveur.
 
-**La réponse de votre API sera toujours sous ce format, seul les 2 premiers paramètres de Response::json() seront changées en fonction des circonstances. Les 2 derniers paramètres ne changeront jamais, prenez l'habitude de les inclure à chaque fois.**
+**La réponse de votre API sera toujours sous ce format, seul les 2 premiers paramètres de Response::json() seront changées en fonction des circonstances. Les 2 derniers paramètres ne changeront jamais, prenez l'habitude de les inclure à chaque fois lorsque vous renvoyez des données dont vous n'avez pas connaissance des résultats.**
 
 Vous allez maintenant devoir compléter les 5 méthodes pour pouvoir faire les actions CRUD via votre API.
 
-Vous n'avez pas besoin de vérifier que l'User existe pour les méthodes update() et show(), car le système d'exception de Laravel que nous avons configuré précédemment gère déjà les modèles inexistant.
+Vous n'avez pas besoin de vérifier que l'User existe pour les méthodes update() et show(), car le système d'exception de Laravel que nous avons configuré précédemment gère déjà les modèles inexistant en renvoyant une erreur.
 
-En revanche, il est souhaitable de créer une validation concernant les méthodes update() et store() : nous ne voulons pas que quelqu'un puisse rentrer des informations invalide. La façade "Validator" permet de créer une validation de champs avec des règles prédéfinis. La documentation vous sera utile. Utiliser bien les contraintes de la table du modèle (le champ est-il unique ? est-il optionnel ? est-ce un nombre ?) pour créer une validation performante.
+En revanche, il est souhaitable de créer une validation concernant les méthodes update() et store() : nous ne voulons pas que quelqu'un puisse rentrer des informations invalide.
+
+La façade "Validator" permet de créer une validation avec des règles prédéfinis. Utiliser bien les contraintes de la table du modèle (le champ est-il unique ? est-il optionnel ? est-ce un nombre ? une email ?) pour créer une validation performante.
 
 Concernant la récupération des variables GET et POST, la façade "Input" permet cela : Input::all() renvoi toutes les données tandis que Input::get('key') renvoi une clef spécifique ou NULL si le champ n'existe pas.
 
 Enfin, une fois que votre controlleur est terminé, vous devez être en mesure de pouvoir faire toutes les actions CRUD sur la ressource Users : utiliser POSTMAN pour tester votre API.
 
+Assurez-vous que votre API se comporte bien avant de passer aux prochains controlleurs.
+
 ### Etape 7 : Controllers : Films et Categories
 
 Vous allez compléter les controllers Films et Categories. Rien de difficile à surmonter, tester et inspirer vous de ce que vous avez fait précédement.
 
-Penser à vérifier que vous ne pouvez pas créer un film avec une catégorie inexistante.
+Penser à vérifier que vous ne pouvez pas créer un film avec une catégorie inexistante, que l'URL de la photo est bonne (si l'URL est précisé, je vous rappel que c'est un champ optionnel).
 
 ### Etape 8 : Controllers : Tickets
 
-A ce stade, les tickets ne devrait pas vous poser de problème.
+A ce stade, les tickets ne devrait pas vous poser de problème et vous devriez être en mesure de remplir le controlleur très rapidement.
 
 Vous n'êtes pas obliger de garder les méthodes update() et destroy() car nous n'aurons jamais besoin de supprimer ou d'éditer un ticket.
 
-Félicitation, l'API est terminé ! Enfin presque, il faut maintenant la tester.
+L'API est terminé ! Enfin presque, il faut maintenant la tester.
 
 ### Avant de passer à l'étape suivante
 
