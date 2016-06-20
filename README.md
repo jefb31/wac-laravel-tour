@@ -6,22 +6,22 @@ Web@academie Laravel tour
 
 Pour les 5 jours à suivre, nous allons créer un site de VOD en ligne comme Netflix.
 
-L'utilisateur souhaitant visiter notre application devra s'inscrire et se connecter.
+L'utilisateur souhaitant visiter notre application devra s'inscrire et s'authententifier.
 
 Il sera possible de voir la liste de tout les films, de les trier par catégories, d'afficher le détail d'un film.
 
-Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket chez un de nos cinéma partenaires.
+Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket pour ce film.
 
-L'administrateur aura plus de droit : il pourra ajouter, éditer, supprimer un film, un membre, une catégorie, un cinéma partenaire, et pourra visualiser les commandes effectuées par les utilisateurs.
+L'administrateur pourra ajouter, éditer, supprimer un film, un membre, une catégorie, et pourra visualiser les commandes effectuées par les utilisateurs. Pas besoin de pouvoir éditer ou supprimer un ticket.
 
-Le site sera constitué en 2 parties : un service (API) sous Laravel, et un site utilisant notre service avec Angular.
+Le site sera constitué en 2 parties : une API sous Laravel, et un site utilisant notre API avec Angular.
 
 - 2 jours sont consacré à la mise en place de l'API avec Laravel.
-- 2 jours sont consacré à la mise en place de la partie front avec Angular.
-- 1 journée est consacré à la mise place de l'administration.
+- 2 jours sont consacré à l'utilisation de notre API avec Angular.
+- 1 journée est consacré à la mise place du grade administrateur
 
 # But
 
 - Comprendre comment mettre en place une API avec un framework demandé sur le marché.
-- Comment faire intéragir une API avec un site web.
-- Comment s'organiser et garder une bonne logique tout au long du projet
+- Comment faire intéragir un site web sous Angular avec une API.
+- Comment s'organiser, gagner du temps, et sécurisé le tout.
