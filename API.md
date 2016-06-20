@@ -232,11 +232,7 @@ Ouvrer le fichier "app/Exceptions/Handler.php" et remplacer la méthode render()
 public function render($request, Exception $e)
 {
     if ($e instanceof ModelNotFoundException) {
-        return Response::json([
-            'errors' => [],
-            'status' => self::NOT_FOUND_MSG,
-            'code'   => self::NOT_FOUND_CODE,
-        ], 404);
+        return Response::json(['errors' => 'Not found.'], 404);
     }
 
     return parent::render($request, $e);
