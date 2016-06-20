@@ -2,15 +2,15 @@
 
 #### Temps de travail : 2 jours maximum
 
-#### Pré-requis : PHP, Apache, MySQL.
+#### Pré-requis : PHP, MySQL.
 
 Nous allons utiliser Laravel pour la partie API.
 
-Le framework hérite des composants de Symfony et permet de lancer un projet rapidement sans trop formaliser.
+Le framework utilise des composants de Symfony et permet de lancer un projet rapidement sans trop formaliser.
 
-De plus, il est demandé sur le marché de l'emploi et permet de commencer en douceur la transition vers Symfony.
+De plus, il est demandé sur le marché de l'emploi et son système de façade rend son utilisation très simple.
 
-Symfony et Laravel ne sont pas identique et ne sont pas destiné au même projet (bien qu'il soit possible d'utiliser l'un ou l'autre dans tout les cas de figure possible).
+Symfony et Laravel ne sont pas identique et ne sont pas destiné au même projet (bien qu'il soit possible d'utiliser l'un ou l'autre dans tout les cas de figure possible, on préfère utiliser la meilleur solution au problème plutôt que le meilleur problème face à la solution).
 
 Assurez-vous d'avoir Composer d'installé sur votre machine, si ce n'est pas le cas : https://getcomposer.org
 
@@ -22,25 +22,30 @@ Lancer un terminal et utiliser cette commande pour télécharger Laravel depuis 
 composer create-project --prefer-dist laravel/laravel api
 ```
 
-Une fois l'installation terminé, utiliser votre terminal et déplacer vous dans le nouveau dossier "api". Lancer le serveur web de Laravel, cela nous évitera d'utiliser Apache et nous fera gagner du temps :
+Une fois l'installation terminé, utiliser votre terminal et déplacer vous dans le nouveau dossier "api".
 
-```
+Lancer le serveur web de Laravel, cela nous évitera d'utiliser Apache :
+
+```php
 php artisan serv
 ```
-Passons maintenant à l'étape crucial : la création de la base de donnée depuis phpMyAdmin ou votre terminal. Si vous avez un trou de mémoire :
+
+Passons maintenant à l'étape crucial : la création de la base de donnée depuis phpMyAdmin ou votre terminal.
 
 ```sh
 mysql -u<username> -p<password>
 CREATE DATABASE <dbname>
 ```
 
-Assurez-vous de donner les droits nécessaires en écriture au dossier "api/storage". Si une erreur de type "MonoLog" se produit plus tard, c'est sûrement car ce dossier n'est pas accessible en écriture.
+Assurez-vous de donner les droits nécessaires en écriture au dossier "api/storage" : si une erreur de type "Monolog" se produit, c'est sûrement car ce dossier n'est pas accessible en écriture.
 
 Editer le fichier "api/.env", coeur de configuration de Laravel, pour y insérer vos informations de connexion MySQL.
 
-Pour finir, je vous invite à télécharger POSTMAN qui vous permettra de tester votre API facilement. Il fonctionne en tant que plugin Chrome : https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+Pour finir, je vous invite à télécharger POSTMAN qui vous permettra de tester votre API facilement.
 
-Enfin, il est temps de tester : http://localhost:8000 devrait vous afficher la page d'accueil par défaut de Laravel.
+Il fonctionne en tant que plugin Chrome : https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+
+Parfait, maintenant il est temps de tester votre projet : http://localhost:8000 devrait vous afficher la page d'accueil par défaut de Laravel.
 
 **Il est inutile de continuer le sujet si vous avez des erreurs ou que la page d'accueil ne s'affiche pas.**
 
@@ -50,28 +55,42 @@ La première étapes va être de modéliser notre base de donnée.
 
 Laravel intègre un outil de migration qui permet de créer votre base de donnée via des classes PHP.
 
-Tout les frameworks moderne intègre cette fonctionnalitées.
-
-Finit les longues minutes sur phpMyAdmin à sélectionner des listes et remplir des cases.
+Tout les frameworks moderne intègre cette fonctionnalitées et il est indispensable de savoir comment l'utiliser.
 
 L'avantage de ce système est triple :
 
 - Les autres développeurs pourront voir tout changement sur la base donnée via le code et retracer l'historique des changements.
 - Il est possible d'executer une migration (migrate) ou de revenir en arrière (rollback), plutôt pratique si l'on se trompe.
-- Les migrations sont partagées lorque vous faîtes un commit, ce qui signifie que les autres développeurs pourront prendre en compte vos modifications sans demander un dump, juste en executant à leur tour les migrations.
+- Les migrations sont partagées lorque vous faîtes un commit, ce qui signifie que les autres développeurs pourront prendre en compte vos modifications sans demander un dump de votre base de donnée, juste en executant à leur tour les migrations.
 
-Vous allez devoir réfléchir à la structure de la base de donnée pour 5 tables :
+Nous allons utiliser 4 tables pour notre projet :
 
 - Users
 - Films
 - Categories
 - Tickets
 
-Certaines tables ont des relations qu'il faudra penser en amont.
+Pour créer une migration, utiliser la commande suivante :
 
-Avant de passer à l'étape suivante, il est nécessaire de créer les migrations pour les 5 tables.
+```
+php artisan make:migration create_xxx_table
+```
 
-Si vous n'avez pas réussis ou qu'une option vous semble étrange, n'hésiter pas à demander de l'aide.
+Vous n'avez plus qu'à remplir les méthodes up() et down() de votre nouvelle migration, correspondant respectivement à la migration et au rollback.
+
+Penser à utiliser les options "softDelete" pour ne pas réellement supprimer un résultat et "timestamp" qui créera automatiquement les champs "created_at" et "updated_at" dans votre table.
+
+Certaines tables ont des relations qu'il faudra penser en amont (Films->Categories, Tickets->Users, Tickets->Fims).
+
+Pour partir sur une base commune, je vous propose de reproduire les tables suivantes : https://github.com/kMeillet/wac-laravel-tour/blob/master/DATABASE.md
+
+Une fois les 4 migrations créé et complété, executer la commande suivante pour appliquer vos migrations :
+
+```
+php artisan migrate
+```
+
+**Il est indispensable de consulter la documentation pour connaître les options utilisable.**
 
 ### Etape 3 : Routes
 
@@ -84,6 +103,15 @@ Actuellement, vous ne posséde qu'une seul route : la page d'accueil par défaut
 Par défaut, la configuration des routes est manuel : vous devez lister les différentes URL avec le controller et la méthode à appeler, pas très pratique et plutôt verbeux si vous avez des dizaines de routes.
 
 Heuresement, Laravel intègre un système de ressource qui vous fera gagner du temps : plus besoin de mapper vos URL, le framework s'en occupe automatiquement.
+
+```php
+Route::resource('photos', 'PhotosController'); // Un exemple de ressource
+```
+
+Dans cette exemple, voici ce que Laravel créer automatiquement :
+
+[logo]: http://image.noelshack.com/fichiers/2016/25/1466387953-legend-restful-res.png
+
 
 Vous allez devoir créer 4 ressources :
 
@@ -274,4 +302,24 @@ Par défaut, nos modèles héritent de pas mal de méthode.
 
 ### Etape 8 : Tickets
 
-Félicitation, l'API est terminé. Vous n'avez plus qu'a
+Félicitation, l'API est terminé ! Enfin presque, il faut maintenant la tester.
+
+### Avant de passer à l'étape suivante
+
+Avant de passer à l'étape suivante, il est nécessaire de valider votre API.
+
+Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests" vers votre API.
+
+Lancer la commande suivante :
+
+```php
+phpunit
+```
+
+Après analyse, la qualité de votre API doit-être de 100%.
+
+En cas de note inférieur, cela signifie que votre API ne fonctionne pas correctement : corriger vos erreurs et relancer les tests, vous ne pourrez pas accéder à la partie suivante si votre API n'est pas 100% fonctionnel.
+
+Vous appprendez plus tard à créer vos propre tests automatique.
+
+La partie suivante sera disponible Mercredi a 8h00.
