@@ -92,7 +92,7 @@ php artisan migrate
 
 **Il est indispensable de consulter la documentation pour connaître les options utilisable.**
 
-### Etape 3 : Routes
+### Etape 2 : Routes
 
 Les routes permettent de mapper une action sur une URL.
 
@@ -110,8 +110,9 @@ Route::resource('photos', 'PhotosController'); // Un exemple de ressource
 
 Dans cette exemple, voici ce que Laravel créer automatiquement :
 
-[logo]: http://image.noelshack.com/fichiers/2016/25/1466387953-legend-restful-res.png
+![Ressource](http://image.noelshack.com/fichiers/2016/25/1466387953-legend-restful-res.png)
 
+La troixième colonne correspond à la méthode appelé dans le controller.
 
 Vous allez devoir créer 4 ressources :
 
@@ -122,37 +123,41 @@ Vous allez devoir créer 4 ressources :
 
 Chaque ressource devra être lié à propre controlleur : UsersController, FilmsController, CategoriesController, TicketsController. Ces controllers devront être créer via la ligne de commande ; vous le savez, c'est toujours plus rapide.
 
+```php
+php artisan make:controller Users --resource
+```
+
 Parlons maintenant des middlewares. Vous ne connaissez peut-être pas le principe ? Ce sont des portions de code qui sont executé avant que le framework ne vous envoie une réponse.
 
-Cela permet, par exemple, de créer un système de tracage des actions des utilisateurs (logger) en enregistrant l'URL de la page en cours, de vérifier que l'utilisateur ne serais pas bannis via son IP, de démarrer les sessions, ... Les utilisations sont nombreuses.
+Cela permet, par exemple, de créer un système de tracage des actions des utilisateurs (logger), de démarrer les sessions, ... Les utilisations sont nombreuses.
 
-Par défaut, Laravel intègre plusieurs middlewares, et même des "groupes" de middleware (le groupe "web" contient 5 middlewares par défaut : EncryptCookies, AddQueudCookiesToResponse, StartSession, ShareErrorsFromSession, VerifyCSRFToken).
+Par défaut, Laravel intègre plusieurs middlewares, et même des "groupes" de middleware (le groupe "web" contient 5 middlewares : EncryptCookies, AddQueudCookiesToResponse, StartSession, ShareErrorsFromSession, VerifyCSRFToken).
 
 Rappellez-vous, nous allons utiliser Angular avec notre API, et nous avons séparer notre site en 2 couches : le back sous Laravel, le front sous Angular. Les deux fonctionnent séparément, dans leur propre serveur en total indépendance l'un de l'autre.
 
 Nous allons donc avoir 2 serveurs, ce qui pose un problème fondamental : une ressource ne peut pas être partagé entre 2 domaine.
 
-Ce qui signifie que notre API ne peut pas être appellé depuis un autre domaine que le notre, plutôt génant : c'est ce qu'on appel le "Cross-origin resource sharing" (CORS).
-
-De plus, nous n'avons ni besoin des sessions et des cookies, le groupe de middleware "web" est destiné au site qui tourne entièrement sous Laravel de manière classique.
+Ce qui signifie que notre API ne peut pas être appellé depuis un autre domaine que le notre, plutôt génant. Nous allons devoir autoriser nos requêtes vers l'API, c'est ce qu'on appel le "Cross-origin resource sharing" (CORS).
 
 Pour activer le CORS sur Laravel, il faut installer ce paquet : https://github.com/barryvdh/laravel-cors
 
-Une fois installé, il va falloir appliquer 2 middlewares (API et CORS) à nos routes. Pour cela, crééons un groupe qui contiendra toutes nos routes :
+Une fois installé, il va falloir appliquer 2 middlewares (API et CORS) à nos routes.
+
+Pour cela, crééons un groupe qui contiendra toutes nos ressources :
 
 ```php
 Route::group(['middleware' => ['api', 'cors']], function() {
-  // Vos routes ...
+  // Vos ressources ...
 });
 ```
 
-Félicitation, votre API est maintenant accessible depuis l'extérieur !
+Le groupe de middleware "web" est destiné au site qui tourne sous Laravel de manière classique. Notre API n'utilisera ni cookies ni session, nous n'en n'avons donc pas besoin. Il existe un groupe de middleware "api" prévu pour notre cas.
 
-### Etape 4 : Models
+### Etape 3 : Models
 
 Attaquons maintenant le vif du sujet, la partie modèle.
 
-Pour commencer, il va falloir créer 4 modèles :
+Pour commencer, il va falloir créer 4 modèles, chacun correspondant à une table :
 
 - Users
 - Films
@@ -161,7 +166,11 @@ Pour commencer, il va falloir créer 4 modèles :
 
 Nos modèles contiendront les propriétés 'fillable', 'hidden', 'timestamps', je vous laisse vous renseigner sur l'utilité de ces propriétées.
 
-Par défaut, nos modèles héritent de pas mal de méthode. 
+Encore une fois, la ligne de commande vous permettra de créer vos modèles.
+
+Il va falloir définir nos relations entre chaque modèle. Laravel intègre plusieurs type de relation (hasOne, hasMany, belongsTo). Pour s'aider, il suffit de parler en anglais : "Users has many tickets, a ticket belongs to user".
+
+Sous Laravel
 
 ### Etape 5 : Gestion d'erreur
 
