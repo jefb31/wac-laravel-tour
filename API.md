@@ -139,7 +139,7 @@ Cela permet, par exemple, de créer un système de tracage des actions des utili
 
 Par défaut, Laravel intègre plusieurs middlewares, et même des "groupes" de middleware (le groupe "web" contient 5 middlewares : EncryptCookies, AddQueudCookiesToResponse, StartSession, ShareErrorsFromSession, VerifyCSRFToken).
 
-Rappellez-vous, nous allons utiliser Angular avec notre API, et nous avons séparer notre site en 2 couches : le back sous Laravel, le front sous Angular. Les deux fonctionnent séparément, dans leur propre serveur, en total indépendance l'un de l'autre.
+Rappellez-vous, nous allons utiliser Angular avec notre API, et nous avons séparer notre site en 2 couches : le back sous Laravel, le front sous Angular. Les deux fonctionnent séparément, dans leur propre serveur, en total indépendance.
 
 Le problème, c'est qu'une ressource ne peut pas être partagé entre 2 domaines.
 
