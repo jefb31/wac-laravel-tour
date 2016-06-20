@@ -2,6 +2,8 @@
 
 #### Temps de travail : 2 jours maximum
 
+#### Documentation : https://laravel.com/docs/5.2
+
 #### Pré-requis : PHP, MySQL
 
 Nous allons utiliser Laravel pour la partie API.
