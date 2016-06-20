@@ -48,3 +48,6 @@ $table->foreign('category_id')->references('id')->on('categories');
 | user_id       | integer       | UNSIGNED car ne peut pas être négatif, FOREIGN KEY de users.id |
 | film_id       | integer       | UNSIGNED car ne peut pas être négatif, FOREIGN KEY de films.id |
 | price         | float         | UNSIGNED car ne peut pas être négatif |
+
+
+Nom de la base de donnée : netflix
