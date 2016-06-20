@@ -20,6 +20,7 @@ $table->foreign('category_id')->references('id')->on('categories');
 | login         | varchar       | UNIQUE, 15 caractères max |
 | email         | varchar       | UNIQUE, 255 caractères max |
 | password      | varchar       | 255 caractères max |
+| is_admin      | boolean       | 0 par défaut
 
 # Films
 
