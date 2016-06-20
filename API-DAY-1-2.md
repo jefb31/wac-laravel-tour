@@ -327,7 +327,7 @@ L'API est terminé ! Enfin presque, il faut maintenant la tester.
 
 Avant de passer à l'étape suivante, il est nécessaire de valider votre API.
 
-Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests-d1" vers le dossier "tests" de votre API.
+Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests-api" vers le dossier "tests" de votre API.
 
 Lancer la commande suivante :
 
