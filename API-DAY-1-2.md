@@ -210,7 +210,7 @@ Pour tester votre modèle, vous pouvez utiliser la REPL de Laravel :
 php artisan tinker
 ```
 
-### Etape 5 : Gestion d'erreur
+### Etape 4 : Gestion d'erreur
 
 Un problème particulier se pose : nous n'avons aucune gestion d'erreur.
 
@@ -251,7 +251,7 @@ Désormais, lorsque nous appellons un modèle inexistant (essayer sur http://loc
 
 Ils ne nous restent plus qu'a créer nos controllers pour terminer notre API.
 
-### Etape 6 : Controllers : Users
+### Etape 5 : Controllers : Users
 
 Lorsque vous avez utiliser la ligne de commande pour créer vos controlleurs, Laravel a automatiquement créer les méthodes correspondant aux routes de la ressource.
 
@@ -309,13 +309,13 @@ Enfin, une fois que votre controlleur est terminé, vous devez être en mesure d
 
 Assurez-vous que votre API se comporte bien avant de passer aux prochains controlleurs.
 
-### Etape 7 : Controllers : Films et Categories
+### Etape 6 : Controllers : Films et Categories
 
 Vous allez compléter les controllers Films et Categories. Rien de difficile à surmonter, tester et inspirer vous de ce que vous avez fait précédement.
 
 Penser à vérifier que vous ne pouvez pas créer un film avec une catégorie inexistante, que l'URL de la photo est bonne (si l'URL est précisé, je vous rappel que c'est un champ optionnel).
 
-### Etape 8 : Controllers : Tickets
+### Etape 7 : Controllers : Tickets
 
 A ce stade, les tickets ne devrait pas vous poser de problème et vous devriez être en mesure de remplir le controlleur très rapidement.
 
