@@ -253,14 +253,63 @@ Dans notre cas de figure, nous n'avons besoin que des actions CRUD (Create, Read
 
 - Voir les users (méthode index())
 - Voir un user en particulier (méthode show())
+- Créer un user (méthode store())
 - Supprimer un user (méthode destroy())
-- Editer un user (méthode edit())
+- Editer un user (méthode update())
 
-Vous allez devoir créer vous mêmes le contenu des mé
+Vous pouvez donc supprimer les méthodes create() et edit() qui ne servent qu'à afficher les formulaires de création et d'édition de la ressource, ce qui dans le cas d'une API n'a aucun intérêt.
+
+Voici un exemple de la méthode index() :
+
+```php
+/**
+ * GET /user
+ * @return mixed
+ */
+public function index()
+{
+    $users = User::all();
+
+    return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+}
+```
+
+Dans cette exemple, je charge tout les Users, et je renvoi une réponse au format JSON avec un code 200. Le dernier paramètre indique que nous ne souhaitons pas transformer les valeurs numériques en chaîne de caractères, c'est un paramètre que vous devez utiliser à chaque fois que vous envoyer une réponse pour éviter les problèmes de typage.
+
+Le code 200 indique que tout c'est bien passé. En cas d'erreur de validation d'un formulaire, nous aurions pu renvoyer un code 422 stipulant que le formulaire n'a pas été correctement remplit.
+
+Voici une liste des codes HTTP que vous retrouverez très souvent :
+
+- 200 : succès de la requête.
+- 301 et 302 : redirection, respectivement permanente et temporaire.
+- 403 : accès refusé.
+- 404 : page non trouvée.
+- 422 : formulaire invalide.
+- 500 et 503 : erreur serveur.
+
+**La réponse de votre API sera toujours sous ce format, seul les 2 premiers paramètres de Response::json() seront changées en fonction des circonstances. Les 2 derniers paramètres ne changeront jamais, prenez l'habitude de les inclure à chaque fois.**
+
+Vous allez maintenant devoir compléter les 5 méthodes pour pouvoir faire les actions CRUD via votre API.
+
+Vous n'avez pas besoin de vérifier que l'User existe pour les méthodes update() et show(), car le système d'exception de Laravel que nous avons configuré précédemment gère déjà les modèles inexistant.
+
+En revanche, il est souhaitable de créer une validation concernant les méthodes update() et store() : nous ne voulons pas que quelqu'un puisse rentrer des informations invalide. La façade "Validator" permet de créer une validation de champs avec des règles prédéfinis. La documentation vous sera utile. Utiliser bien les contraintes de la table du modèle (le champ est-il unique ? est-il optionnel ? est-ce un nombre ?) pour créer une validation performante.
+
+Concernant la récupération des variables GET et POST, la façade "Input" permet cela : Input::all() renvoi toutes les données tandis que Input::get('key') renvoi une clef spécifique ou NULL si le champ n'existe pas.
+
+Enfin, une fois que votre controlleur est terminé, vous devez être en mesure de pouvoir faire toutes les actions CRUD sur la ressource Users : utiliser POSTMAN pour tester votre API.
 
 ### Etape 7 : Controllers : Films et Categories
 
+Vous allez compléter les controllers Films et Categories. Rien de difficile à surmonter, tester et inspirer vous de ce que vous avez fait précédement.
+
+Penser à vérifier que vous ne pouvez pas créer un film avec une catégorie inexistante.
+
 ### Etape 8 : Controllers : Tickets
+
+A ce stade, les tickets ne devrait pas vous poser de problème.
+
+Vous n'êtes pas obliger de garder les méthodes update() et destroy() car nous n'aurons jamais besoin de supprimer ou d'éditer un ticket.
 
 Félicitation, l'API est terminé ! Enfin presque, il faut maintenant la tester.
 
@@ -268,7 +317,7 @@ Félicitation, l'API est terminé ! Enfin presque, il faut maintenant la tester.
 
 Avant de passer à l'étape suivante, il est nécessaire de valider votre API.
 
-Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests" vers votre API.
+Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests-d1" vers le dossier "tests" de votre API.
 
 Lancer la commande suivante :
 
@@ -276,8 +325,8 @@ Lancer la commande suivante :
 phpunit
 ```
 
-Après analyse, la qualité de votre API doit-être de 100%.
+Après analyse, la qualité de votre API doit-être de 100% et aucune erreur ne doit survenir.
 
-En cas de note inférieur, cela signifie que votre API ne fonctionne pas correctement : corriger vos erreurs et relancer les tests, vous ne pourrez pas accéder à la partie suivante si votre API n'est pas 100% fonctionnel.
+En cas de note inférieur, cela signifie que votre API ne fonctionne pas correctement : corriger vos erreurs et relancer les tests, vous ne pourrez pas accéder à la partie suivante si votre API n'est pas 100% fonctionnel !
 
 La partie suivante sera disponible Mercredi a 8h00.
