@@ -329,4 +329,4 @@ Après analyse, la qualité de votre API doit-être de 100% et aucune erreur ne 
 
 En cas de note inférieur, cela signifie que votre API ne fonctionne pas correctement : corriger vos erreurs et relancer les tests, vous ne pourrez pas accéder à la partie suivante si votre API n'est pas 100% fonctionnel !
 
-La partie suivante sera disponible Mercredi a 8h00.
+La partie suivante sera disponible Mercredi a 8h00 pour éviter l'avancement trop rapide / les retards.
