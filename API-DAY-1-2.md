@@ -301,7 +301,7 @@ Vous n'avez pas besoin de vérifier que l'User existe pour les méthodes update(
 
 En revanche, il est souhaitable de créer une validation concernant les méthodes update() et store() : nous ne voulons pas que quelqu'un puisse rentrer des informations invalide.
 
-La façade "Validator" permet de créer une validation avec des règles prédéfinis. Utiliser bien les contraintes de la table du modèle (le champ est-il unique ? est-il optionnel ? est-ce un nombre ? une email ?) pour créer une validation performante.
+La façade "Validator" permet de créer une validation avec des règles prédéfinis. Utiliser bien les contraintes de la table du modèle (le champ est-il unique ? est-il optionnel ? est-ce un nombre ? une email ?) pour créer une validation performante. En cas de formulaire invalide, vous afficherez les erreurs avec un code 422.
 
 Concernant la récupération des variables GET et POST, la façade "Input" permet cela : Input::all() renvoi toutes les données tandis que Input::get('key') renvoi une clef spécifique ou NULL si le champ n'existe pas.
 
