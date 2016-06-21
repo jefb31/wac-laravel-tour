@@ -182,7 +182,7 @@ php artisan make:model User
 
 Par défaut, les modèles héritent de tout un tas de méthode utiles.
 
-Nos modèles contiendront les propriétées 'fillable', 'hidden', 'timestamps', je vous laisse vous renseigner sur l'utilité de ces propriétées.
+Nos modèles contiendront les propriétées 'fillable', 'hidden', 'timestamps', je vous laisse vous renseigner sur l'utilité de ces propriétées. Il faudra utiliser le trait "softDelete" dans votre modèle pour activer le softDelete.
 
 Il va falloir définir nos relations entre chaque modèle. Laravel intègre plusieurs type de relation (hasOne, hasMany, belongsTo, ...). Pour s'aider, il suffit de parler en anglais : "Users has many tickets, a ticket belongs to user".
 
@@ -325,18 +325,82 @@ L'API est terminé ! Enfin presque, il faut maintenant la tester.
 
 ### Avant de passer à l'étape suivante
 
-Avant de passer à l'étape suivante, il est nécessaire de valider votre API.
+Avant de passer à l'étape suivante, il est nécessaire de valider votre API : cela se fera Mardi 21 Juin à 13h30.
 
-Pour ce faire, cloner ce projet via Git et copier le contenu du répertoire "tests-api" vers le dossier "tests" de votre API.
+La piscine MEAN ayant 5 notes sur 5 jours, il faut égaliser. On part sur 2 notes pour ces 2 premiers jours.
 
-Lancer la commande suivante :
+Chaque sous-catégorie de la journée est testé, si un fail se présente, on passe à la sous-catégorie suivante, jusqu'à la fin.
 
-```php
-phpunit
-```
+### 1) Jours #1 : 20 Points
 
-Après analyse, la qualité de votre API doit-être de 100% et aucune erreur ne doit survenir.
+On va regarder le code et uniquement le code, pas le fonctionnement de l'API.
 
-En cas de note inférieur, cela signifie que votre API ne fonctionne pas correctement : corriger vos erreurs et relancer les tests, vous ne pourrez pas accéder à la partie suivante si votre API n'est pas 100% fonctionnel !
+##### Migrations : 4 Points
+
+- Toutes les migrations sont présente : 0,5
+- Les contraintes, type et nom des champs sont respectés en intégralité : 2
+- Le softDelete et timestamp sont bien utilisés dans toutes les migrations : 0,5
+- Le rollback fonctionne et on peut migrer correctement : 1
+
+##### Routes : 3 Points
+
+- Les ressources RESTFUL avec les verbes HTTP GET/POST/PUT/DELETE sont utilisés : 0,5
+- Toutes les routes sont présente et aucune erreur 404 sur les routes demandées n'apparaît : 1,5
+- Les middlewares "api" et "cors" sont bien utilisés et installés : 1
+
+##### Modèles : 4 Points
+
+- Tout les modèles sont présent : 0,5
+- Les modèles possède des relations et elles sont correctement implémentés : 2
+- Les modèles implémente tous les propriétés protégés fillable, hidden et timestamp : 0,5
+- Le trait softDelete est correctement utilisé sur tout les modèles : 1
+
+##### Controllers : 9 Points
+
+- Tout les controllers sont présent : 0,5
+- Toutes les méthodes de nos ressources sont présentes : 0,5
+- Les méthodes inutilisés ne sont plus présentes : 0,5
+- Les méthodes effectue les actions CRUD demandés : 3
+- La validation existe et les règles sont correctement implémenté : 3
+- Il y'a une différence notable entre la validation de la méthode store et update : 1
+- Les codes HTTP sont bien utilisés : 0,5 
+
+### 1) Jours #2 : 20 Points
+
+Pour avoir tout les points, assurez-vous que votre API fonctionne bien et que les laisons renvoie bien les données.
+
+Les films doivent renvoyer leur catégorie lié.
+
+Les catégories doivent à l'inverse renvoyer la liste de tout leurs films lié ***seulement si on demande la méthode show() pour éviter toute surcharge !***
+
+Les users doivent renvoyer la liste de leur tickets ***seulement si on demande la méthode show() pour éviter toute surcharge !***
+
+Les tickets doivent à l'inverse renvoyer les information de l'user lié ainsi que le film correspondant ***seulement si on demande la méthode show() !***
+
+Chercher sur la documentation, c'est très simple à mettre en place !
+
+##### Tests : 15 Points
+
+- On peut sélectionner (all/single), créer, modifier et supprimer un user : 3
+- La ressource user a bien les données liés : 1
+- On peut sélectionner (all/single), créer, modifier et supprimer un film : 3
+- La ressource film a bien les données liés : 1
+- On peut sélectionner (all/single), créer, modifier et supprimer une catégorie : 3
+- La ressource category a bien les données liés : 1
+- On peut sélectionner (all/single), créer, modifier et supprimer un ticket : 2
+- La ressource ticket a bien les données liés : 1
+
+#### Validations et gestion des ressources introuvables : 5 Points
+
+- La validation des users est fonctionnel : 2
+- La validation des films est fonctionnel : 1
+- La validation des catégories est fonctionnel : 0,5
+- La validation des tickets est fonctionnel : 0,5
+- Lorsqu'une ressource est introuvable, une erreur 404 avec réponse JSON est renvoyé : 1
+
+#### Points bonus :
+
+- Qualité du code, pas d'incohérence ni d'erreur PHP : 2
+- Small controller, validation directement dans le dossier "app/Http/Request" avec "artisan make:request" : 1
 
 La partie suivante sera disponible Mercredi a 8h00 pour éviter l'avancement trop rapide / les retards.
