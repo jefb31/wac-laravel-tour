@@ -365,7 +365,7 @@ On va regarder le code et uniquement le code, pas le fonctionnement de l'API.
 - Il y'a une différence notable entre la validation de la méthode store et update : 1
 - Les codes HTTP sont bien utilisés : 0,5 
 
-### 1) Jours #2 : 20 Points
+### 2) Jours #2 : 20 Points
 
 Pour avoir tout les points, assurez-vous que votre API fonctionne bien et que les laisons renvoie bien les données.
 
@@ -396,7 +396,7 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - La validation des films est fonctionnel : 1
 - La validation des catégories est fonctionnel : 0,5
 - La validation des tickets est fonctionnel : 0,5
-- Lorsqu'une ressource est introuvable, une erreur 404 avec réponse JSON est renvoyé : 1
+- Lorsqu'une ressource est introuvable, une erreur 404 avec réponse JSON est renvoyée : 1
 
 ### Points bonus
 
