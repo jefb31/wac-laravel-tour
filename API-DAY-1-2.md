@@ -390,7 +390,7 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - On peut sélectionner (all/single), créer, modifier et supprimer un ticket : 2
 - La ressource ticket a bien les données liés : 1
 
-#### Validations et gestion des ressources introuvables : 5 Points
+##### Validations et gestion des ressources introuvables : 5 Points
 
 - La validation des users est fonctionnel : 2
 - La validation des films est fonctionnel : 1
@@ -398,7 +398,7 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - La validation des tickets est fonctionnel : 0,5
 - Lorsqu'une ressource est introuvable, une erreur 404 avec réponse JSON est renvoyé : 1
 
-#### Points bonus, distribué sur le jour 1 et 2 en divisant la note par 2 :
+### Points bonus
 
 - Qualité du code, pas d'incohérence : 1
 - Pas d'erreur PHP : 1
