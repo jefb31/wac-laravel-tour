@@ -375,7 +375,7 @@ Les catégories doivent à l'inverse renvoyer la liste de tout leurs films lié 
 
 Les users doivent renvoyer la liste de leur tickets ***seulement si on demande la méthode show() pour éviter toute surcharge !***
 
-Les tickets doivent à l'inverse renvoyer les information de l'user lié ainsi que le film correspondant ***seulement si on demande la méthode show() !***
+Les tickets doivent à l'inverse renvoyer les information de l'user lié ainsi que le film correspondant ***seulement si on demande la méthode show() pour éviter toute surcharge !***
 
 Chercher sur la documentation, c'est très simple à mettre en place !
 
@@ -384,7 +384,7 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - On peut sélectionner (all/single), créer, modifier et supprimer un user : 3
 - La ressource user a bien les données liés : 1
 - On peut sélectionner (all/single), créer, modifier et supprimer un film : 3
-- La ressource film a bien les données liés : 1
+- La ressource film a bien les données liés, sur toutes les méthodes : 1
 - On peut sélectionner (all/single), créer, modifier et supprimer une catégorie : 3
 - La ressource category a bien les données liés : 1
 - On peut sélectionner (all/single), créer, modifier et supprimer un ticket : 2
@@ -402,5 +402,3 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 
 - Qualité du code, pas d'incohérence ni d'erreur PHP : 2
 - Small controller, validation directement dans le dossier "app/Http/Request" avec "artisan make:request" : 1
-
-La partie suivante sera disponible Mercredi a 8h00 pour éviter l'avancement trop rapide / les retards.
