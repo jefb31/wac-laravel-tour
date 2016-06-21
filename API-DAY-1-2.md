@@ -369,7 +369,7 @@ On va regarder le code et uniquement le code, pas le fonctionnement de l'API.
 
 Pour avoir tout les points, assurez-vous que votre API fonctionne bien et que les laisons renvoie bien les données.
 
-Les films doivent renvoyer leur catégorie lié.
+Les films doivent renvoyer leur catégorie lié, sur toutes les méthodes.
 
 Les catégories doivent à l'inverse renvoyer la liste de tout leurs films lié ***seulement si on demande la méthode show() pour éviter toute surcharge !***
 
