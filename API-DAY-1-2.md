@@ -398,7 +398,8 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - La validation des tickets est fonctionnel : 0,5
 - Lorsqu'une ressource est introuvable, une erreur 404 avec réponse JSON est renvoyé : 1
 
-#### Points bonus, distribuer sur le jour 1 et 2 en divisant la note par 2 :
+#### Points bonus, distribué sur le jour 1 et 2 en divisant la note par 2 :
 
-- Qualité du code, pas d'incohérence ni d'erreur PHP : 2
+- Qualité du code, pas d'incohérence : 1
+- Pas d'erreur PHP : 1
 - Small controller, validation directement dans le dossier "app/Http/Request" avec "artisan make:request" : 1
