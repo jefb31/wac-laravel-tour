@@ -64,11 +64,11 @@ import { fonctionA, fonctionB } from './monFichier'; // import juste fonctionA e
 Pour exporter, oublier "module.exports", on part directement sur le mot clef "export" qui définit ce qu'on exporte :
 
 ```js
-export fonctionA() {
+export function fonctionA() {
  console.log('Hello');
 };
 
-export fonctionB() {
+export function fonctionB() {
  console.log('Holla');
 };
 ```
