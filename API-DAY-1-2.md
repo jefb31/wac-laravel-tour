@@ -403,3 +403,5 @@ Chercher sur la documentation, c'est très simple à mettre en place !
 - Qualité du code, pas d'incohérence : 1
 - Pas d'erreur PHP : 1
 - Small controller, validation directement dans le dossier "app/Http/Request" avec "artisan make:request" : 1
+
+Suite : https://github.com/kMeillet/wac-laravel-tour/blob/master/ANGULAR-3-4.md
