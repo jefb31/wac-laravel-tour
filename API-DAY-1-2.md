@@ -367,7 +367,7 @@ On va regarder le code et uniquement le code, pas le fonctionnement de l'API.
 
 ### 2) Jours #2 : 20 Points
 
-Pour avoir tout les points, assurez-vous que votre API fonctionne bien et que les laisons renvoie bien les données.
+Pour avoir tout les points, assurez-vous que votre API fonctionne bien et que les liaisons renvoie bien les données.
 
 Les films doivent renvoyer leur catégorie lié, sur toutes les méthodes.
 
