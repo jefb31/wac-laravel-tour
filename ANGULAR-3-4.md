@@ -83,9 +83,9 @@ function superFonctionExportable() {
 export default superFonctionExportable;
 ```
 
-Vous allez pouvoir découper votre code JavaScript en plusieurs fichiers, vous créer une vrais structure, sans coder à la chaîne dans 1 seul fichier de 6000 lignes, votre code sera plus lisible, les avantages sont nombreux.
+Vous allez pouvoir découper votre code JavaScript en plusieurs fichiers.
 
-Nous allons utiliser ECMAScript 6 dans ce projet et vous retrouverez très souvent cette syntaxe. J'y reviendrais plus tard.
+Nous allons utiliser ECMAScript 6 dans ce projet et vous retrouverez très souvent cette syntaxe ; j'y reviendrais plus tard.
 
 ### Les préprocesseurs
 
@@ -144,8 +144,8 @@ body
   background-color mainColor // on utilise une variables importé de "mesVariables.stylus"
 ```
 
-
 Encore une fois, cette fonctionnalité s'avère très pratique et cela permet de découper ces fichiers CSS en plusieurs morceaux.
+A la manière des modules en ES6 qui permettent de découper son code, c'est désormais possible avec un préprocesseur pour le CSS.
 
 Nous utiliseront Stylus dans ce projet pour les quelques ligne de CSS que nous aurons à créer.
 
@@ -207,4 +207,4 @@ Angular amène avec lui différents concept que nous aborderons au fur et à mes
 
 # Installation
 
-La suite sera disponible Mercredi à 13h30.
+La suite sera disponible Jeudi à 11h00.
