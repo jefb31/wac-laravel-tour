@@ -207,4 +207,293 @@ Angular amène avec lui différents concept que nous aborderons au fur et à mes
 
 # Installation
 
-La suite sera disponible Jeudi à 11h00.
+Node.js en version 6.0.2 ou supérieur est requis ; si vous avez une version antèrieur, télécharger la nouvelle version sur le site officiel.
+
+Une architecture toute faîtes est déjà présente pour vous facilitez la vie.
+
+Elle inclue WebPack et la configuration que je vous ai décrite avec Angular 1.5 et Materialize.
+
+```sh
+git clone https://github.com/kMeillet/angular-boilerplate
+```
+
+Installer les dépendances nécessaires avec Node.js :
+
+```sh
+cd angular-boilerplate/
+npm install
+```
+
+***En cas d'erreurs, il est inutile de passer à l'étape suivante.***
+
+# Architecture
+
+Notre architecture est composé de 3 dossiers :
+
+- env : contient notre système de build WebPack.
+- src : les sources du projet Netflix en ES6, Stylus, HTML ; c'est la fête.
+- dist : les sources une fois compilés par WebPack, ce dossier est le produit de la compilation lisible par le navigateur.
+
+La racine comporte plusieurs fichiers, dont voici les plus importants :
+
+- .editorconfig : permet de partager une configuration général entre différents éditeurs.
+
+- .eslintrc : ESLint est un linter JavaScript. Le linter analyse la qualité du code et si une anomalie est détéctée, bloque le processus de compilation de WebPack. Nous utiliserons la norme AirBnB en ES6 pour ne pas polluer notre code. Le compilateur vous empêchera d'afficher votre site si vous ne respecter pas la norme. Les erreurs sont affichés dans la console et sur votre navigateur. Si vous ne comprenez pas une règle, demandez moi.
+
+- package.json : Référencement de tout les paquets du projet installés avec NPM et information sur le projet.
+
+Quand vous avez installer les paquet avec "npm install", vous avez téléchargé et installé les paquets que j'ai enregistré dans le fichier "package.json".
+
+```js
+{
+  "name": "Angular-boilerplate",
+  "version": "1.0.0",
+  "description": "Angular 1.5 in component way",
+  "scripts": {
+    "update": "npm-check-updates -u && npm update",
+    "build": "node ./env/build.js",
+    "dev": "node ./env/dev-server.js"
+  },
+  "author": "Meillet Robin",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "babel-core": "^6.7.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.6.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-node6": "^11.0.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.6.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-friendly-formatter": "^2.0.4",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-import": "^1.6.1",
+    "eslint-plugin-jsx-a11y": "^1.0.4",
+    "eslint-plugin-promise": "^1.1.0",
+    "eslint-plugin-react": "^5.0.1",
+    "eslint-plugin-standard": "^1.3.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.19.0",
+    "ora": "^0.2.1",
+    "postcss-loader": "^0.9.1",
+    "shelljs": "^0.7.0",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.0.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.10.0",
+    "webpack-merge": "^0.13.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-materialize": "^0.1.7",
+    "angular-ui-router": "^0.3.1",
+    "hammerjs": "^2.0.8",
+    "jquery": "^2.2.3",
+    "materialize-css": "^0.97.6"
+  }
+}
+```
+
+Ce fichier est un JSON, les 3 clées intéressante sont :
+
+- "scripts" : Contient des commandes executable avec "npm run". Nous possédons 3 commandes "npm run update", "npm run build", "npm run dev". La première met à jours les paquets du projet, la seconde compile une fois avec WebPack, la troixième charge le serveur de développement de WebPack.
+
+- "devDependencies" : dépendance de développement de notre Netflix.
+
+- "dependencies" : dépendance front de notre Netflix, que nous allons utiliser et inclure dans notre build (jQuery et Hammer.js sont nécessaire pour que Materialize fonctionne en ES6 car il n'est pas encore 100% compatible).
+
+Lorsque vous installez un paquet et que vous souhaitez l'enregistrer dans le "package.json", il faut renseigner un flag :
+
+```sh
+npm install <name> --save-dev // sauvegarde dans devDependencies
+npm install <name> --save // sauvegarde dans dependencies
+npm i ... /// raccourcis de npm install
+```
+
+Essayons de builder ce que contient le dossier "src", entrer cette commande :
+
+```sh
+npm run build
+```
+
+Après un temps d'attente, un dossier "dist" s'est créé.
+
+4 fichiers + 1 dossier sont présent à la racine : 
+
+- Notre index.html, copié à chaque fois dans le dossier "dist" lors de la compilation par WebPack et minifié.
+- Un fichier CSS minifié + Javascript minifié.
+- Un fichier .htaccess pour faire fonctionner Angular sur Apache que WebPack depuis le dossier "env".
+- Le dossier assets contient quand à lui tout nos assets, soit actuellement la police "Roboto" utilisé par Materialize.
+
+Ouvrez maintenant le fichier "src/app.styl" : ce fichier Stylus est notre point d'entrée pour nos styles.
+
+La première ligne inclue Materialize (WebPack concatènera le fichier de Materialize dans le notre).
+
+Une variable est ensuité déclaré. Ensuite, plusieurs style de base sont ajoutés pour rendre la page plus jolie, et une animation qui remue un élément sur la page, est présent à la fin du fichier.
+
+Lorsque WebPack a compilé, il a inclu Materialize, utiliser nos variables, ajouter les préfixes CSS nécessaires aux propriétées, convertit le fichier Stylus en CSS, minifier le résulat, et à sortie tout cela dans le dossier "dist" en tant que "app.css".
+
+Le même processus s'est produit sur "app.js", si vous l'ouvrez, vous remarquez d'emblé un import du fichier "vendor.js".
+
+Içi, nous importons carrément le contenu du fichier, il n'y a pas d'export. Ce fichier "vendor.js" contient nos dépendances, soit actuellement uniquement Materialize.
+
+Ensuite, nous importons l'export par défault du fichier "app.main.js" situé dans le même dossier dans la variable app. Ce fichier contient le coeur de notre application Angular, mais nous y reviendrons plus tard, ne l'ouvrez pas tout de suite.
+
+Nous démarrons ensuite angular sur "window.document", soit la fenêtre qui est affiché dans le navigateur :) .
+
+En second paramètre, nous passons notre variable "app" qui est notre application angular que nous avons importé depuis "app.main.js".
+
+Ouvrez maintenant le fichier "index.html", changer le titre du projet par celui de votre choix.
+
+Lorsque nous développons, nous n'avons pas envie de builder à chaque modification du code. C'est pour cela que le serveur de développement existe. Il recompilera losrsque nous codons dans le dossier "src".
+
+Lancer maintenant votre serveur de développement avec la commande suivante :
+
+```js
+npm run dev
+```
+
+Après un temps de chargement, allez sur l'URL suivante : http://localhost:3002
+
+Votre application Angular doit s'afficher.
+
+Ouvrez ensuite le fichier "app.styl" et modifier la variable "background", choisissez une couleur de fond.
+
+N'avez-vous pas remarqué quelque chose ? Lorsque vous avez modifié votre variable, WebPack a compilé et a instantanément injecté vos modifications dans la page sans rafraichissement :) .
+
+Après ce tour d'horizon, il est temps d'attaquer le vif du sujet et les choses concrètes.
+
+# Etape 1 : Inscription et Authentification
+
+La première chose à faire est de pouvoir s'inscrire et se connecter.
+
+Vous allez devoir créer un service "AuthService" dans le dossier "service" : copier-coller le fichier "ConfigService" dans un fichier "auth.service.js" et rechercher/remplacer le mot "ConfigService" par "AuthService". 
+
+Un service permet de créer du code logique dont l'utilisation va se répéter : on aura souvent besoin de se connecter et de se déconnecter et de stocker les informations de l'utilisateur à travers toute notre application. Il peut exister plusieurs moyen de se connecter et on a pas forcément envie de donner coder en dure les fonctionnalités, on préfère faire une classe qui découpe notre logique.
+
+Notre classe sera AuthService et elle ne possèdera aucune méthode hormis une méthode static "factory" qui renverra une nouvelle instance de notre classe. Elle possédera un constructeur qui ne fera rien.
+
+Supprimer la méthode "get", "logger", la constante "CONFIG" et l'import en haut du fichier. Vider le contenu du constructeur.
+
+Factory est un design-pattern très simple qui sert à masquer la complexité de la construction, en facilitant la création d'une nouvelle instance.
+
+Voici un exemple en ES6 :
+
+```js
+class Pokemon {
+  constructor(name, type) {
+    this.name = name;
+    this.type = name;
+   
+    console.log(`Ton nom de pokémon est : ${name} et ton type ${type}`);
+  }
+}
+
+class Digimon {
+  constructor(name, race) {
+    this.name = name;
+    this.race = race;
+   
+    console.log(`Ton nom de digimon est : ${name} et ta race ${race}`);
+  }
+}
+
+class DresseurFactory {
+ static factory(type, ...params) { // on prend le premier parametre et tout les autres seront transformé en tableau
+   const [name, secondParametre] = params; // on destructure en constante car la valeur ne bougera pas
+
+   if (type === 'POKEMON') {
+    return new Pokemon(name, secondParametre]);
+   } else {
+   return new Digimon(name, secondParametre);
+ }
+}
+
+const mew = DresseurFactory.factory('POKEMON', 'Mew', 'Psy');
+const aegios = DresseurFactory.factory('DIGIMON', 'Angios', 'God');
+```
+
+Chaque appel de DresseurFactory.factory renvoie une nouvelle instance de Pokemon ou Digimon.
+
+Certaines fois, les constructions entre les classes peuvent être complexe et le design-pattern factory facilite cela.
+
+Les factory sont nécessaire pour qu'Angular puisse utiliser nos services et injecte les dépendances de notre service (car oui, vous avez le voir, notre service va avoir besoin ... d'autre services).
+
+Après notre classe se trouve un commentaire : 
+
+```js
+// AuthService.factory.$inject = [];
+```
+
+$inject est un service d'Angular qui se charge d'injecter les dépendances de notre service dans notre factory.
+
+Qui elle même se chargera de créer notre service.
+
+A ce propos, Anguler ne créé le service une fois, la première fois qu'il est appellé. Ensuite, c'est un singleton (instance unique et interdiction d'en créer une nouvelle) : il ne rappellera jamais la fonction factory.
+
+Angular possède bon nombre de service comme $http pour faire des requêtes AJAX, $state pour rediriger.
+
+Nous allons avoir besoin du service $http, injectons le et décommentons la ligne :
+
+```js
+AuthService.factory.$inject = [$http];
+```
+
+Puis dans notre factory :
+
+```js
+/**
+ * Factory of this class
+ * @returns {AuthService}
+ */
+static factory() {
+  return new AuthService();
+}
+```
+
+Et enfin, dans le constructeur de notre service :
+
+```js
+constructor($http) {
+  
+}
+```
+
+Désormais, il va falloir enregistrer le service lorsque le constructor est lancé. Pour cela, créer une constante SERVICES à la première ligne du fichier :
+
+```js
+const SERVICES = new Map();
+```
+
+Une Map est un nouveau type en ES6. C'est une paire de clef => valeur, comme le sont les tableau de clef => valeur en PHP ou les hash en Ruby.
+
+Une Map possède les méthodes "get", "set", "has", la propriété "size".
+
+```js
+const SERVICES = new Map();
+
+SERVICES.set('clef', 'valeur');
+SERVICES.get('clef'); // => valeur
+SERVICES.has('yolo') // => false
+SERVICES.size // => 1
+SERVICES.destroy('clef')
+SERVICES.size // => 0
+```
+
+Notre constante nous servira à enregistrer tout les services que notre constructeur utilise.
+
+```js
+constructor($http) {
+  SERVICES.set('$http', $http);
+}
+```
+
+Désormais, le service $http est accessible dans toute notre classe via la constante SERVICES.
+
