@@ -1,6 +1,6 @@
 # Database
 
-Toutes les tables devront contenir les options "softDelete" et "timestamp" qui vont créer 2 champs supplémentaires : "created_at" et "updated_at".
+Toutes les tables devront contenir les options "softDelete" et "timestamp" qui vont créer 3 champs supplémentaires : "deleted_at", "created_at", "updated_at".
 
 **Documentation :** https://laravel.com/docs/5.2/migrations#creating-columns
 
