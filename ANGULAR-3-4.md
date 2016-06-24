@@ -646,6 +646,116 @@ Cette méthode devra console.log votre objet loginForm.
 
 Si vous postez le formulaire, vous devez voir votre objet à jour dans votre console.
 
-Si ce n'est pas le cas, ne passez pas à l'étape suivante.
+***Si ce n'est pas le cas ou que vous avez des erreurs sur WebPack/votre navigateur, venez me voir***
 
-# Etape 2 
+Vous avez bindé votre modèle loginForm avec ng-model, ng-submit lance la fonction postLoginForm().
+
+Il est temps de se connecter.
+
+Ré-ouvrez votre API et créer une route en POST sur '/auth' qui appel le controller AuthController et la méthode authenticate().
+Cette méthode devra effectuer ceci :
+
+```
+$user = User::where('login', '=', Input::get('login'))->firstOrFail();
+
+if (Hash::check(Input::get('password'), $user->password)) {
+  return Response::json($user, 200, [], JSON_NUMERIC_CHECK);
+}
+
+return Response::json(['errors' => 'Invalid credentials.'], 401, [], JSON_NUMERIC_CHECK);
+```
+
+Penser à importer les namespaces nécessaires.
+
+Modifier votre UserController et ajouter la fonction bycrypt() sur le champ password envoyé dans store() et update().
+
+Cela permettra de sécurisé le mot de passe via un cryptage.
+
+Créer un fake-user avec POST-MAN, noter le login et password dans un coin.
+
+Votre route '/auth' est censé fonctionner avec POST-MAN.
+
+Fermer votre API et réouvrez votre projet Angular.
+
+Vous allez devoir utiliser le service AuthService, ouvrez le fichier et ajouter une méthode tryToAuthenticate.
+
+Elle prendra un paramètre, "credentials" qui sera un objet avec un couple login/password.
+
+Cette méthode devra retourner la méthode "post" du service $http qui prend 2 paramètres :
+
+- L'URL de la requête (http://localhost/auth par exemple)
+- Un objet correspondant aux données envoyée 
+
+Utiliser l'URL de votre API vers l'authentification et envoyer le paramètre de notre fonction :
+
+```js
+return SERVICES
+        .get('$http')
+        .post('http://localhost/auth', credentials);
+```
+
+Une fois la requête envoyé, il nous faut une réponse, utilisons le système de promesse d'Angular :
+
+```js
+return SERVICES
+        .get('$http')
+        .post('http://localhost/auth', credentials);
+        .then(data => console.log('Réussis', data))
+        .catch(error => console.log('Fail', error));
+```
+
+Then est attendu lorsque l'opération réussis. Catch se produit lorsque sa fail.
+
+Il est possible d'utiliser plusieurs then/catch, et c'est ce que nous allons faire, vous prendrez l'habitude :) .
+
+Maintenant que notre méthode est codé, il nous faut stocker les informations de l'user. Lorsque cette fonction sera appellé par notre controller du composant Netflix-Login, il faut que si les informations sont correct, stocker les données et enregistrer les informations dans un cookies.
+
+Ajouter dans votre constructeur d'AuthService :
+
+```js
+this.user = false;
+```
+
+La première fois que nous appelons le service, l'user est vide. Lorsque la fonction tryToAuthenticate est appelé, nous devons modifier cette variable :
+
+```js
+return SERVICES
+        .get('$http')
+        .post('http://localhost/auth', credentials);
+        .then(data => {
+            this.user = data;
+
+            console.log('Valid credentials', data);
+
+            return data;
+         })
+        .catch(error => console.error('Invalid credentials !', error));
+```
+
+Nous retournons les données pour qu'après la connexion, notre controller puisse continuer à utiliser then et rediriger l'utilisateur.
+
+Utilisons maintenant notre méthode dans le controller de Netflix-Login.
+
+Injecter votre service d'authentification et lodifier votre méthode postLoginForm :
+
+```
+postLoginForm() {
+ SERVICES.get('authService')
+         .tryToAuthenticate(this.loginForm)
+         .then(() => {
+            SERVICES.get('$state').transitionTo('home');
+          });
+}
+```
+
+Puisque notre méthode tryToAuthenticate retourne notre promesse, nous pouvons continuer à utiliser un deuxième then() qui sera lancé si la fonction réussis :) .
+
+Notre code est clair et lisible de haut en bas, lorsque nous avons réussis, nous redirigons vers la page d'accueil.
+
+Essayez maintenant de vous connecter, il est probable que vous ayez rater une information. En cas de problème, n'hésitez pas à venir me voir.
+
+*** Note : ***
+
+Si vous obtenez une erreur Cross-Origin-Request dans votre console, il sera nécessaire d'utiliser Apache plutôt que le serveur de Laravel.
+
+N'oubliez pas d'éditer votre fichier ".env" dans votre API pour changer l'URL de votre API si vous le changez de place.
