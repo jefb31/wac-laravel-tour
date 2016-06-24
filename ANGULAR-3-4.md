@@ -634,10 +634,10 @@ Vous aviez peut-être l'habitude d'utiliser "$scope" qui est un service Angular,
 
 Utiliser "ng-model" sur le champ login et mot de passe avec le binding correspondant.
 
-Ensuite, il nous faut envoyer le formulaire. Angular intègre la directive "ng-submit" qui se place sur une balise "<form>". Elle prend en paramètre une fonction :
+Ensuite, il nous faut envoyer le formulaire. Angular intègre la directive "ng-submit" qui se place sur une balise "form". Elle prend en paramètre une fonction :
 
 ```html
-<form ng-submit="vm.postLoginForm()"=
+<form ng-submit="vm.postLoginForm()">
 ```
 
 Utiliser "ng-submit" et créer une méthode postLoginForm() dans votre controller.
