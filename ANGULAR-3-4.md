@@ -737,7 +737,7 @@ Nous retournons les données pour qu'après la connexion, notre controller puiss
 
 Utilisons maintenant notre méthode dans le controller de Netflix-Login.
 
-Injecter votre service d'authentification et lodifier votre méthode postLoginForm :
+Injecter votre service d'authentification et modifier votre méthode postLoginForm :
 
 ```js
 postLoginForm() {
@@ -752,6 +752,22 @@ Puisque notre méthode tryToAuthenticate retourne notre promesse, nous pouvons c
 Notre code est clair et lisible de haut en bas, lorsque nous avons réussis, nous redirigons vers la page d'accueil.
 
 Essayez maintenant de vous connecter, il est probable que vous ayez rater une information. En cas de problème, n'hésitez pas à venir me voir.
+
+Vous êtes maintenant capable d'utiliser le service $http d'Angular pour utiliser voter API.
+
+La prochaine étape est l'inscription, créer un composant "Netflix-Register" en vous inspirant du "Netflix-Login", enregistrez la route, et faîtes des tests.
+
+Pour faire des lien entre vos routes, utiliser la directive "ui-sref" en attribut avec le nom de la route, Angular se chargera de créer un lien vers la route :
+
+```html
+<a ui-sref="home">Accueil</a>
+```
+
+Après l'inscription, il faudra gérér les permissions. Vous devrez faire en sortes que les utilisateurs ne puissent pas visualiser la page d'accueil et soit automatiquement rediriger vers la route '/auth' de votre site si la variable 'user' de votre AuthService est égal à "false".
+
+Vous devrez aussi ajouter le système de cookies pour sauvegarder les informations de l'utilisateur à la connexion, et modifier le constructeur de votre AuthService pour vérifier que le cookies est présent, et le cas échéant modifier ls informations et connecter automatiquement l'utilisateur plutôt que de mettre la valeur à "false".
+
+La prochaine étape sera disponible Vendredi à 12h00. Nous ajouterons la liste des films, le détail d'un film et des catégories, puis nous ajouterons une recherche, et l'ajout de ticket.
 
 *** Note : ***
 
