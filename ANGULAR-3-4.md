@@ -607,6 +607,7 @@ Donnons maintenant des propriétés à notre objet :
 ```js
   constructor($state) {
     SERVICES.set('$state', $state);
+
     this.loginForm = {
       login: '',
       password: '',
@@ -655,7 +656,7 @@ Il est temps de se connecter.
 Ré-ouvrez votre API et créer une route en POST sur '/auth' qui appel le controller AuthController et la méthode authenticate().
 Cette méthode devra effectuer ceci :
 
-```
+```php
 $user = User::where('login', '=', Input::get('login'))->firstOrFail();
 
 if (Hash::check(Input::get('password'), $user->password)) {
@@ -742,9 +743,7 @@ Injecter votre service d'authentification et lodifier votre méthode postLoginFo
 postLoginForm() {
  SERVICES.get('authService')
          .tryToAuthenticate(this.loginForm)
-         .then(() => {
-            SERVICES.get('$state').transitionTo('home');
-          });
+         .then(() => SERVICES.get('$state').transitionTo('home'));
 }
 ```
 
