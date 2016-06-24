@@ -738,7 +738,7 @@ Utilisons maintenant notre méthode dans le controller de Netflix-Login.
 
 Injecter votre service d'authentification et lodifier votre méthode postLoginForm :
 
-```
+```js
 postLoginForm() {
  SERVICES.get('authService')
          .tryToAuthenticate(this.loginForm)
