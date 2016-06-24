@@ -769,7 +769,7 @@ Vous devrez aussi ajouter le système de cookies pour sauvegarder les informatio
 
 La prochaine étape sera disponible Vendredi à 12h00. Nous ajouterons la liste des films, le détail d'un film et des catégories, puis nous ajouterons une recherche, et l'ajout de ticket.
 
-*** Note : ***
+**Note :**
 
 Si vous obtenez une erreur Cross-Origin-Request dans votre console, il sera nécessaire d'utiliser Apache plutôt que le serveur de Laravel.
 
