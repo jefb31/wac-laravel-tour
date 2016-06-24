@@ -46,11 +46,11 @@ module.exports = {
   }
 };
 ```
-Et on peut ensuite les importer dans un autre fichier. Très pratique vous me direz car dans le navigateur, nous n'avons pas l'habitude de morceler notre code.
+Et on peut ensuite les importer dans un autre fichier.
 
 Aujourd'hui, on est capable de faire la même chose dans les navigateurs et c'est ce que nous allons voir.
 
-Il y'a quelque semaines, je vous avais présenté un slide sur ECMAScript 6 (aussi appelé ES2015) qui est le nouveau standard de JavaScript.
+Il y'a quelque semaines, je vous avais présenté un slide sur ECMAScript 6 (aussi appelé ES2015) qui est le nouveau standard de JavaScript. Je vous ai demandé de voir la vidéo de Grafikart de 28mn sur ECMAScript 6, n'hésiter pas à la revoir.
 
 Pas supporté intégralement dans les navigateurs, il existe des compilateurs permettant de transformer votre code ES6 en ES5 (du code JavaScript classique que vous auriez l'habitude d'écrire).
 
@@ -317,7 +317,15 @@ npm install <name> --save // sauvegarde dans dependencies
 npm i ... /// raccourcis de npm install
 ```
 
-Essayons de builder ce que contient le dossier "src", entrer cette commande :
+Nous allons avoir besoin d'Angular Cookies, une extension d'Angular pour gérer les cookies.
+
+Ce paquet existe sous NPM sous le nom "angular-cookies", installer le et enregistrez le en tant que dependencies.
+
+```
+npm i angular-cookies --save
+```
+
+Ensuite, essayons de builder ce que contient le dossier "src", entrer cette commande :
 
 ```sh
 npm run build
@@ -370,17 +378,19 @@ N'avez-vous pas remarqué quelque chose ? Lorsque vous avez modifié votre varia
 
 Après ce tour d'horizon, il est temps d'attaquer le vif du sujet et les choses concrètes.
 
-# Etape 1 : Inscription et Authentification
+# Etape 1 : Découverte, inscription et connexion
 
 La première chose à faire est de pouvoir s'inscrire et se connecter.
 
-Vous allez devoir créer un service "AuthService" dans le dossier "service" : copier-coller le fichier "ConfigService" dans un fichier "auth.service.js" et rechercher/remplacer le mot "ConfigService" par "AuthService". 
+Vous allez devoir créer un service "AuthService" dans le dossier "service" : copier-coller le fichier "ConfigService" dans un fichier "auth.service.js" et rechercher/remplacer le mot "ConfigService" par "AuthService".
+
+Supprimer les méthodes get() et logger() et profité en pour supprimé l'import et la constante "CONFIG" en haut du fichier.
+
+Supprimer tout le contenu du constructeur, laisser le vide pour l'instant ; cela nous permet d'avoir un service prêt à être codé :) .
 
 Un service permet de créer du code logique dont l'utilisation va se répéter : on aura souvent besoin de se connecter et de se déconnecter et de stocker les informations de l'utilisateur à travers toute notre application. Il peut exister plusieurs moyen de se connecter et on a pas forcément envie de donner coder en dure les fonctionnalités, on préfère faire une classe qui découpe notre logique.
 
-Notre classe sera AuthService et elle ne possèdera aucune méthode hormis une méthode static "factory" qui renverra une nouvelle instance de notre classe. Elle possédera un constructeur qui ne fera rien.
-
-Supprimer la méthode "get", "logger", la constante "CONFIG" et l'import en haut du fichier. Vider le contenu du constructeur.
+Notre classe sera AuthService et elle possède actuellement une méthode static "factory" qui renverra une nouvelle instance de notre classe.
 
 Factory est un design-pattern très simple qui sert à masquer la complexité de la construction, en facilitant la création d'une nouvelle instance.
 
@@ -406,8 +416,8 @@ class Digimon {
 }
 
 class DresseurFactory {
- static factory(type, ...params) { // on prend le premier parametre et tout les autres seront transformé en tableau
-   const [name, secondParametre] = params; // on destructure en constante car la valeur ne bougera pas
+ static factory(type, ...params) { // transforme le reste en tableau
+   const [name, secondParametre] = params; // casse le tableau en 2 variables
 
    if (type === 'POKEMON') {
     return new Pokemon(name, secondParametre]);
@@ -426,35 +436,39 @@ Certaines fois, les constructions entre les classes peuvent être complexe et le
 
 Les factory sont nécessaire pour qu'Angular puisse utiliser nos services et injecte les dépendances de notre service (car oui, vous avez le voir, notre service va avoir besoin ... d'autre services).
 
-Après notre classe se trouve un commentaire : 
+Si nous souhaitons utiliser un service dans notre service, il va falloir l'injecter. 
+
+$inject est un service d'Angular qui se charge d'injecter les dépendances de notre service.
+
+Il s'utilise de la manière suivante, à la fin d'une classe :
 
 ```js
-// AuthService.factory.$inject = [];
+AuthService.factory.$inject = [];
 ```
 
-$inject est un service d'Angular qui se charge d'injecter les dépendances de notre service dans notre factory.
+Ajouter cette ligne à la fin de votre AuthService.
 
-Qui elle même se chargera de créer notre service.
+Anguler ne créé le service une fois, la première fois qu'il est appelé.
 
-A ce propos, Anguler ne créé le service une fois, la première fois qu'il est appellé. Ensuite, c'est un singleton (instance unique et interdiction d'en créer une nouvelle) : il ne rappellera jamais la fonction factory.
+Ensuite, c'est un singleton (instance unique) : il ne rappellera jamais la fonction factory.
 
-Angular possède bon nombre de service comme $http pour faire des requêtes AJAX, $state pour rediriger.
+Angular possède bon nombre de service comme $http pour faire des requêtes AJAX, $state pour rediriger, et $inject pour injecter des dépendances.
 
-Nous allons avoir besoin du service $http, injectons le et décommentons la ligne :
+Nous allons avoir besoin du service $http, injectons-le :
 
 ```js
-AuthService.factory.$inject = [$http];
+AuthService.factory.$inject = ['$http'];
 ```
 
-Puis dans notre factory :
+Ensuite, ajoutons l'argument dans notre factory :
 
 ```js
 /**
  * Factory of this class
  * @returns {AuthService}
  */
-static factory() {
-  return new AuthService();
+static factory($http) {
+  return new AuthService($http);
 }
 ```
 
@@ -466,15 +480,19 @@ constructor($http) {
 }
 ```
 
-Désormais, il va falloir enregistrer le service lorsque le constructor est lancé. Pour cela, créer une constante SERVICES à la première ligne du fichier :
+Désormais, il va falloir enregistrer le service lorsque le constructor est lancé. Pour cela, créer une constante SERVICES à la ligne 1, qui sera accessible partout dans ce fichier.
 
 ```js
 const SERVICES = new Map();
 ```
 
-Une Map est un nouveau type en ES6. C'est une paire de clef => valeur, comme le sont les tableau de clef => valeur en PHP ou les hash en Ruby.
+Une Map est un nouveau type en ES6 : c'est une paire de clef => valeur, comme peuvent l'être les tableaux en PHP ou les hash en Ruby.
 
-Une Map possède les méthodes "get", "set", "has", la propriété "size".
+Une Map possède les méthodes "get", "set", "has", "destroy", "keys", "values", ... et la propriété "size".
+
+Documentation : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Map
+
+C'est un moyen très simple de stocker des données, voici un exemple :
 
 ```js
 const SERVICES = new Map();
@@ -483,11 +501,13 @@ SERVICES.set('clef', 'valeur');
 SERVICES.get('clef'); // => valeur
 SERVICES.has('yolo') // => false
 SERVICES.size // => 1
-SERVICES.destroy('clef')
+SERVICES.delete('clef')
 SERVICES.size // => 0
 ```
 
-Notre constante nous servira à enregistrer tout les services que notre constructeur utilise.
+Notre constante nous servira à enregistrer tout les services que notre service utilise.
+
+Ajoutons le service $http :
 
 ```js
 constructor($http) {
@@ -495,5 +515,137 @@ constructor($http) {
 }
 ```
 
-Désormais, le service $http est accessible dans toute notre classe via la constante SERVICES.
+Désormais, le service $http est accessible dans toute notre classe via :
 
+```js
+SERVICES.get('$http');
+```
+
+Rien de plus simple ! Si vous souhaitez utiliser un service dans un service, il faudra se rappeler de la procédure : ajout dans $inject, ajout dans la fonction factory, ajout dans le constructeur, et stockage dans une Map :) .
+
+Maintenant, nous allons devoir créer notre formulaire.
+
+Pour décomposer notre application, nous utilisons les composants : cela permet de découper l'application en plusieurs morceaux.
+
+Un composant est une balise HTML (exemple : <searchbar></searchbar>) qu'Angular va reconnaître et utiliser.
+
+Un composant possède un controller et un template. WebPack permet d'ajouter du style.
+
+Les composants sont isolés les un des autres et une bonne pratique est d'isoler leur état : plus votre composant intéragis avec l'extérieur, plus il est difficile à tester.
+
+Si vous ouvrez le dossier "src/component", vous verrez plusieurs composants :
+
+- Netflix-Home : correspond au composant de la page d'accueil.
+- Netflix-Login : correspondant au composant de la page d'authentification
+
+Ils existent 2 types de composant :
+
+- Les composants parent : Netflix-home et Netflix-login le sont, ce sont des composants qui sont les "parent" de composant enfants.
+
+- Les composants enfants : ce sont des composants qui ont un parent et qui ne peuvent pas fonctionner seul.
+
+Ouvrez le fichier "src/constant/route.js". C'est içi que nous définissons toutes nos routes pour Angular.
+
+Remarquez vous les balises dans le mot clef "template" ? Cela correspondant à nos composants Netflix-Home et Netflix-Login.
+
+Lorsque nous accédons à la page d'accueil, le composant Netflix-Home est chargé et son controlleur est appelé immédiatement. Ouvrez le controller du Netflix-Home.
+
+Remarquez à nouveau l'utilisation de $inject. Sauf que cette fois, il n'y a pas besoin de factory :) .
+
+Le service $state permet de gérer l'utilisation du router pour faire des redirections par exemple.
+
+Si vous inspectez le dossier "src/component/netflix-home/", vous verrez qu'il contient bien un template HTML, un style Stylus, un controller Angular, et un fichier principal qui relie ces 3 modules en un seul, exporté.
+
+Le point d'entrée de tout les composants est le fichier "src/app.component.js". C'est içi qu'on enregistre chaque composant dans la fonctona angular.component !
+
+Il est vital d'importer chaque nouveau composant et de les enregistrer pour qu'Angular puisse s'en servir, on peut chaîner la fonction avec le point en sautant des lignes.
+
+Le première paramètre correspond au nom de la balise : netflixHome donnera netflix-home pour que ce soit "HTML Compatible". Les majuscule sont interprété comme un changement, ce qui donne le tiret séparateur :) . On utilisera toujours un préfix comme netflix actuellement pour éviter les colisions avec d'autre scripts ou une balise HTML existante.
+
+Angular préfixe ces composants et directives avec le mot clef "ng" : ng-repeat, ng-show, ng-model, ng-click, ... Ionic Framework préfix avec "ion" : ion-nav-view, ...
+
+Le même fichier, "src/app.service.js", référence chaque service. A ce propos, il est nécessaire que vous modifiez ce fichier pour ajouter l'AUthService :) .
+
+Le premier paramètre est le nom du service que vous allez pouvoir utiliser, le second paramètre prend la fonction factory de la classe AuthService. N'oubliez pas d'importer le fichier, bien évidemment.
+
+Maintenant que vous commencez à comprendre comment fonctionne notre structure, nous allons pouvoir modifier notre premier composant.
+
+Fermez tout les fichiers de votre éditeur, et ouvrez "src/app.main.js".
+
+C'est içi qu'Angular importe nos routes, nos services, nos composants, ...
+
+Importer 'angular-cookies' :
+
+```js
+import cookies from 'angular-cookies';
+```
+
+Puis, ajouter cookies au dépendance de notre application Angular ligne 13 :
+
+```js
+[cookies, router, materialize, services, components]
+```
+
+Maintenant que nous avons Angular Cookies, fermez ce fichier et ouvrez "src/component/netflix-login/template/netflix-login.html".
+
+Votre première tâche est de créer un formulaire de connexion avec login et mot de passe.
+
+Ouvrez ensuite le controller de votre composant, et ajouter un objet "loginForm" dans votre constructeur.
+
+Pour que cette objet soit accessible partout dans notre classe, nous avons besoin d'utiliser "this" :
+
+```js
+  constructor($state) {
+    SERVICES.set('$state', $state);
+
+    this.loginForm = {};
+  }
+```
+
+Donnons maintenant des propriétés à notre objet :
+
+```js
+  constructor($state) {
+    SERVICES.set('$state', $state);
+    this.loginForm = {
+      login: '',
+      password: '',
+    };
+  }
+```
+
+Par défaut, les valeurs seront vide. Vous l'aurez déviné, cela représentre notre formulaire de connexion.
+
+Nous allons utiliser le data-binding, un concept clé d'Angular.
+
+Lorsque nous tapons dans notre formlaire, nous souhaitons que notre objet se mettent à jour. Angular permet cela avec la directive "ng-model". C'est un attribut qui prend en paramètre un modèle pour Angular.
+
+```html
+<form>
+  <p>Login :</p>
+  <input type="text" ng-model="vm.loginForm.login">
+  ...
+</form>
+```
+
+"vm" représentre le contexte de notre controlleur.
+
+Vous aviez peut-être l'habitude d'utiliser "$scope" qui est un service Angular, utilisé "vm" et stocker les modèles dans "this" est une meilleur pratique.
+
+Utiliser "ng-model" sur le champ login et mot de passe avec le binding correspondant.
+
+Ensuite, il nous faut envoyer le formulaire. Angular intègre la directive "ng-submit" qui se place sur une balise "<form>". Elle prend en paramètre une fonction :
+
+```html
+<form ng-submit="vm.postLoginForm()"=
+```
+
+Utiliser "ng-submit" et créer une méthode postLoginForm() dans votre controller.
+
+Cette méthode devra console.log votre objet loginForm.
+
+Si vous postez le formulaire, vous devez voir votre objet à jour dans votre console.
+
+Si ce n'est pas le cas, ne passez pas à l'étape suivante.
+
+# Etape 2 
