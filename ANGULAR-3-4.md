@@ -767,7 +767,15 @@ Après l'inscription, il faudra gérér les permissions. Vous devrez faire en so
 
 Vous devrez aussi ajouter le système de cookies pour sauvegarder les informations de l'utilisateur à la connexion, et modifier le constructeur de votre AuthService pour vérifier que le cookies est présent, et le cas échéant modifier ls informations et connecter automatiquement l'utilisateur plutôt que de mettre la valeur à "false".
 
-La prochaine étape sera disponible Vendredi à 12h00. Nous ajouterons la liste des films, le détail d'un film et des catégories, puis nous ajouterons une recherche, et l'ajout de ticket.
+Une fois cela terminé, vous devrez terminer les actions suivantes :
+
+- Créer une barre de navigation faisant le lien entre nos routes
+- Lister les films sur la page d'accueil.
+- Voir le detail d'un film
+- Acheter un ticket sur un film
+- Modifier le profil de l'utilisateur connecté
+
+Vous avez jusqu'à Lundi 8h00 pour terminer votre front Angular. Vous serez noté sur ces 2 journées de travail.
 
 **Note :**
 
