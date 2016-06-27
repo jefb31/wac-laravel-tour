@@ -12,13 +12,10 @@ Il sera possible de voir la liste des films, de les trier par catégories, d'aff
 
 Lorsque l'utilisateur regarde le détail d'un film, il aura la possibilité d'acheter un ticket pour ce film.
 
-L'administrateur pourra ajouter, éditer, supprimer un film, un membre, une catégorie, visualiser les commandes effectuées par les utilisateurs. Pas besoin de pouvoir éditer ou supprimer un ticket.
-
 Le site sera constitué en 2 parties : une API sous Laravel, et un site web utilisant notre API avec Angular.
 
 - 2 jours pour la mise en place de l'API avec Laravel.
-- 2 jours pour l'utilisation de notre API avec Angular.
-- 1 journée pour la mise place du grade administrateur.
+- 3 jours pour l'utilisation de notre API avec Angular.
 
 # But
 
@@ -29,3 +26,4 @@ Le site sera constitué en 2 parties : une API sous Laravel, et un site web util
 
 - Vente des tickets avec PayPal.
 - Gestions des dates pour les films avec la recherche.
+- Gestion de l'administrateur
