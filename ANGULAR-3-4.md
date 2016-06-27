@@ -1,6 +1,6 @@
 # Avant de commencer
 
-#### Temps de travail : 2 jours maximum
+#### Temps de travail : 3 jours maximum
 
 #### Documentation : https://docs.angularjs.org/api
 
