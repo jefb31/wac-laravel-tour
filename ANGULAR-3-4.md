@@ -765,20 +765,22 @@ Pour faire des lien entre vos routes, utiliser la directive "ui-sref" en attribu
 
 Après l'inscription, il faudra gérér les permissions. Vous devrez faire en sortes que les utilisateurs ne puissent pas visualiser la page d'accueil et soit automatiquement rediriger vers la route '/auth' de votre site si la variable 'user' de votre AuthService est égal à "false".
 
-Vous devrez aussi ajouter le système de cookies pour sauvegarder les informations de l'utilisateur à la connexion, et modifier le constructeur de votre AuthService pour vérifier que le cookies est présent, et le cas échéant modifier ls informations et connecter automatiquement l'utilisateur plutôt que de mettre la valeur à "false".
+Vous devrez aussi ajouter le système de cookies pour sauvegarder les informations de l'utilisateur à la connexion, et modifier le constructeur de votre AuthService pour vérifier que le cookies est présent, et le cas échéant modifier ls informations et connecter automatiquement l'utilisateur plutôt que de mettre la valeur de "user" à "false".
 
 Une fois cela terminé, vous devrez terminer les actions suivantes :
 
-- Créer une barre de navigation faisant le lien entre nos routes
+- Créer une barre de navigation faisant le lien entre nos routes qui ne sera afficher que si l'on est connecté
 - Lister les films sur la page d'accueil.
 - Voir le detail d'un film
 - Acheter un ticket sur un film
 - Modifier le profil de l'utilisateur connecté
 
-Vous avez jusqu'à Lundi 8h00 pour terminer votre front Angular. Vous serez noté sur ces 2 journées de travail.
+Vous avez jusqu'à Mardi 8h00 pour terminer votre front Angular. Vous serez noté sur ces 3 journées de travail avec de la clémence car il y'a beaucoup de nouvelle chose que vous avez appris ces derniers jours.
 
 **Note :**
 
-Si vous obtenez une erreur Cross-Origin-Request dans votre console, il sera nécessaire d'utiliser Apache plutôt que le serveur de Laravel.
+Si vous obtenez une erreur Cross-Origin-Request dans votre console, il sera nécessaire d'utiliser Apache plutôt que le serveur de Laravel ou de vérifier que vous avez activé le plugin CORS dans le chapitre précédent.
 
-N'oubliez pas d'éditer votre fichier ".env" dans votre API pour changer l'URL de votre API si vous le changez de place.
+N'oubliez pas d'éditer votre fichier ".env" dans votre API pour changer l'URL de votre API si vous le changez de place, ainsi que vos informations de base de donnée.
+
+En cas en de problème, consulter la documentation d'Angular.
