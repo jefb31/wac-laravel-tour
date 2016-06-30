@@ -806,7 +806,6 @@ Le jour 1 concerne l'installation et des questions - réponses sur JavaScript po
 
 Le jour 2 concerne l'utilisation d'Angular et des questions - réponses pour vérifier vos connaissances sur le framework.
 
-- Qu'est ce qu'un module JavaScript ? 2
 - Qu'est ce qu'un module Angular ? 2
 - A quoi sert le module app ? 2
 - Qu'est qu'un component ? 2
@@ -816,6 +815,7 @@ Le jour 2 concerne l'utilisation d'Angular et des questions - réponses pour vé
 - Qu'est ce qu'une directive ? 2
 - Que signifie les mots clés "E A C" dans une directive ? 2
 - Qu'est ce qu'une promesse ? 2
+- Citer moi 3 directives d'Angular (ng-***) et 2 services ? 2
 
 ## Jour 3 :
 
