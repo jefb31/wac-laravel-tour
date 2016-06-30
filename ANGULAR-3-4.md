@@ -798,7 +798,7 @@ Le jour 1 concerne l'installation et des questions - réponses sur JavaScript po
 - A quoi sert WebPack et quel est son utilité dans le projet : 2
 - Pourquoi utiliser du SCSS ou Stylus plutôt que du CSS classique : 2
 - Qu'est ce qu'un linter JavaScript et pourquoi l'utilisé : 2
-- Pourquoi utiliser Angular pour utiliser notre API plutôt que du JavaScrip classique : 2
+- Pourquoi utiliser Angular pour utiliser notre API plutôt que du JavaScript classique : 2
 - L'application Angular est installé et démarre sur le port 3002 : 2
 - Expliquer en quelques phrases le choix de l'architecture : 2
 
