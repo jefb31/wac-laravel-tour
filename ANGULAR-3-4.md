@@ -829,9 +829,3 @@ Le jour 3 concerne le code et uniquement le résultat de votre produit.
 - Il est possible d'acheter un ticket sur un film : 3
 - L'administration est présente : 5
 - Recode sur la REPL de Babel : 4
-
-### Points bonus
-
-- Qualité du code, pas d'incohérence : 1
-- Pas d'erreur JavaScript : 1
-- Bonus étudiant : 1
