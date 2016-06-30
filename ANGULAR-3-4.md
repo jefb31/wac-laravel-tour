@@ -784,3 +784,54 @@ Si vous obtenez une erreur Cross-Origin-Request dans votre console, il sera néc
 N'oubliez pas d'éditer votre fichier ".env" dans votre API pour changer l'URL de votre API si vous le changez de place, ainsi que vos informations de base de donnée.
 
 En cas en de problème, consulter la documentation d'Angular.
+
+# Notation
+
+## Jour 1 :
+
+Le jour 1 concerne l'installation et des questions - réponses sur JavaScript pour vérifier vos connaissances apprise lors de son cours.
+
+- Pourquoi utiliser ECMAScript 6 plutôt que du JavaScript classique : 2
+- Quel est la différence entre let et const : 2
+- Qu'est ce qu'une fonction fléchée : 2
+- Qu'est ce qu'un module : 2
+- A quoi sert WebPack et quel est son utilité dans le projet : 2
+- Pourquoi utiliser du SCSS ou Stylus plutôt que du CSS classique : 2
+- Qu'est ce qu'un linter JavaScript et pourquoi l'utilisé : 2
+- Pourquoi utiliser Angular pour utiliser notre API plutôt que du JavaScrip classique : 2
+- L'application Angular est installé et démarre sur le port 3002 : 2
+- Expliquer en quelques phrases le choix de l'architecture : 2
+
+## Jour 2 :
+
+Le jour 2 concerne l'utilisation d'Angular et des questions - réponses pour vérifier vos connaissances sur le framework.
+
+- Qu'est ce qu'un module JavaScript ? 2
+- Qu'est ce qu'un module Angular ? 2
+- A quoi sert le module app ? 2
+- Qu'est qu'un component ? 2
+- Qu'est ce qu'un service ? 2
+- Qu'est ce que l'injection de dépendance ? 2
+- A quoi sert le service $inject ? 2
+- Qu'est ce qu'une directive ? 2
+- Que signifie les mots clés "E A C" dans une directive ? 2
+- Qu'est ce qu'une promesse ? 2
+
+## Jour 3 :
+
+Le jour 3 concerne le code et uniquement le résultat de votre produit.
+
+- L'inscription fonctionne : 2
+- La connexion fonctionne : 2
+- Un cookie est enregistré pour la connexion automatique : 1
+- La liste des films est présente : 2
+- On peut voir le détail d'un film : 1
+- Il est possible d'acheter un ticket sur un film : 3
+- L'administration est présente : 5
+- Recode sur la REPL de Babel : 4
+
+### Points bonus
+
+- Qualité du code, pas d'incohérence : 1
+- Pas d'erreur JavaScript : 1
+- Bonus étudiant : 1
