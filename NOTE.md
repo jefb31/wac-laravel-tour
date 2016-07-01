@@ -39,7 +39,7 @@
 | Fabien Belfin   | 11/20         | Il manque l'administration mais le projet de base est là, bravo |
 | Antoine Monin   | 4/20          | Malheuresement, le projet n'a pas été suffisament travaillé ce week-end, c'est dommage |
 
-### Moyenne final
+## Moyenne final
 
 | ID              | Note
 | ----------------|:-------------:|
@@ -47,3 +47,33 @@
 | Nicolas Estezet | 17/20 (2J travail)
 | Kévin Gerôme    | 18,25/20 (2J travail)
 | Antoine Monin   | 15,3/20 (5J travail)
+
+- Barème (J1/J2) : https://github.com/kMeillet/wac-laravel-tour/blob/master/API-DAY-1-2.md (bas de page)
+
+- Barème (J3/J4/J5) : https://github.com/kMeillet/wac-laravel-tour/blob/master/ANGULAR-3-4.md (bas de page)
+
+BELFIN|MONIN|GEROME|ESTEZET
+|-----|:-----:|-----:|-----:|
+| 0,5	| 0,5	  |0,5	 | 0,5
+| 2 	| 2	    |2     | 2
+| 0,5	| 0,5	  |0,5	 | 0,5
+| 1	  | 1     |1	   |1
+
+			
+0,5	0,5	0,5	0,5
+1,5	1,5	1,5	1,5
+1	1	1	1
+			
+0,5	0,5	0,5	0,5
+2	2	2	2
+0,5	0,5	0,5	0,5
+1	1	0	1
+			
+0,5	0,5	0,5	0,5
+0,5	0,5	0,5	0,5
+0,5	0,5	0,5	0,5
+3	2	2	3
+2	3	2	1
+1	1	1	1
+0,5	0,5	0,5	0,5
+
