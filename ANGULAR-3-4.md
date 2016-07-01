@@ -789,7 +789,7 @@ En cas en de problème, consulter la documentation d'Angular.
 
 ## Jour 1 :
 
-Le jour 1 concerne l'installation et des questions - réponses sur JavaScript pour vérifier vos connaissances apprise lors de son cours.
+Le jour 1 concerne l'installation et des questions - réponses sur JavaScript
 
 - Pourquoi utiliser ECMAScript 6 plutôt que du JavaScript classique : 2
 - Quel est la différence entre let et const : 2
