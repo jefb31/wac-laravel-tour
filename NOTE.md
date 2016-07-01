@@ -53,3 +53,5 @@
 - Barème (J1/J2) : https://github.com/kMeillet/wac-laravel-tour/blob/master/API-DAY-1-2.md (bas de page)
 
 - Barème (J3/J4/J5) : https://github.com/kMeillet/wac-laravel-tour/blob/master/ANGULAR-3-4.md (bas de page)
+
+- Détails sur chaque journée : http://docdro.id/2oZkV7H
