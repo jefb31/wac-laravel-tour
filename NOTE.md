@@ -13,10 +13,10 @@
 
 | ID              | Note          | Remarque  |
 | ----------------|:-------------:| -----:|
-| Fabien Belfin   | 19/20         | Parfait |
+| Fabien Belfin   | 19/20         | Laravel est acquis et le passage sous Symfony se fera facilement |
 | Nicolas Estezet | 18/20         | Parfait |
 | Kévin Gerôme    | 17/20         | Quelques erreurs de validation mais sinon c'est parfait |
-| Antoine Monin   | 19/20         | Parfait |
+| Antoine Monin   | 19/20         | Parfait, a bien rattraper son retard |
 
 ### Jour 2 (Mercredi)
 
