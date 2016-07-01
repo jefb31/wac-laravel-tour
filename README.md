@@ -2,6 +2,8 @@
 
 Web@academie Laravel tour
 
+![Tour](http://image.noelshack.com/fichiers/2016/26/1467333962-lara.jpg)
+
 # Principe
 
 Lors des 5 jours à suivre, nous allons créer un site de VOD en ligne comme Netflix.
